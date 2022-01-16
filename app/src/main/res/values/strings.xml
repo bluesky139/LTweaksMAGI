@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">LTweaksMAGI</string>
-    <!-- Settings Activity Title -->
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_status">Status</string>
+    <string name="status_updated">Dex is already updated.</string>
+    <string name="status_reboot">Dex is just updated, reboot to take effect.</string>
+    <string name="status_error">ERROR! Check logcat for more details.</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
