@@ -1,22 +1,14 @@
 <resources>
     <string name="app_name">LTweaksMAGI</string>
+    <string name="app_ok">OK</string>
     <string name="title_status">Status</string>
     <string name="status_updated">Dex is already updated.</string>
     <string name="status_reboot">Dex is just updated, reboot to take effect.</string>
     <string name="status_error">ERROR! Check logcat for more details.</string>
+    <string name="title_category">Category</string>
 
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!--Entertainment-->
+    <string name="pref_header_entertainment">Entertainment</string>
+    <string name="pref_category_bilibili">Bilibili</string>
+    <string name="pref_bilibili_expand_desc">Expand description by default</string>
 </resources>

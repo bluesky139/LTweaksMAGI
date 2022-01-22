@@ -2,6 +2,8 @@ package li.lingfeng.magi.dex;
 
 import android.content.Context;
 
+import com.topjohnwu.superuser.Shell;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -11,6 +13,7 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import li.lingfeng.magi.utils.FileWriter;
 import li.lingfeng.magi.utils.Logger;
 
 public class Dex {
@@ -24,6 +27,15 @@ public class Dex {
 
     public int checkAndUpdate(Context context) {
         try {
+            if (!new File(FOLDER).exists()) {
+                Shell.Result result = Shell.su("mkdir " + FOLDER
+                        + " && chmod 777 " + FOLDER
+                        + " && chcon u:object_r:app_data_file:s0 " + FOLDER).exec();
+                if (result.getCode() != 0) {
+                    throw new Exception("Can't create " + FOLDER);
+                }
+            }
+
             File file = new File(PATH);
             byte[] oldBytes = null;
             if (file.exists()) {
@@ -40,7 +52,7 @@ public class Dex {
                     byte[] bytes = IOUtils.toByteArray(zipFile.getInputStream(entry));
                     if (!Arrays.equals(oldBytes, bytes)) {
                         Logger.i("Extract classes.dex to " + PATH + ", len " + bytes.length);
-                        FileUtils.writeByteArrayToFile(file, bytes);
+                        FileWriter.write(file, bytes);
                         status = STATUS_JUST_UPDATED;
                     } else {
                         Logger.i("Dex is already updated, len " + bytes.length);
@@ -50,6 +62,7 @@ public class Dex {
                     throw new Exception("Multi dex must be disabled.");
                 }
             }
+            zipFile.close();
             if (status == -1) {
                 throw new Exception("No classes.dex?");
             }

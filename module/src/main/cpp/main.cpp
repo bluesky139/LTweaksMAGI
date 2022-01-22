@@ -3,24 +3,46 @@
 #include <riru.h>
 #include <malloc.h>
 #include <cstring>
+#include <string>
 #include <config.h>
-#include <android/log.h>
+#include <unistd.h>
+#include "log.h"
 
-static char *jstringToC(JNIEnv * env, jstring jstr){
-    char *ret = NULL;
-    if (jstr) {
-        const char* str = env->GetStringUTFChars(jstr, NULL);
-        if (str != NULL) {
-            int len = strlen(str);
-            ret = (char*) malloc((len + 1) * sizeof(char));
-            if (ret != NULL){
-                memset(ret, 0, len + 1);
-                memcpy(ret, str, len);
-            }
-            env->ReleaseStringUTFChars(jstr, str);
-        }
+const char* FOLDER = "/data/local/LTweaksMAGI";
+const char* DEX_PATH = "/data/local/LTweaksMAGI/MAGI.dex";
+const char* MAIN_CLASS = "li.lingfeng.magi.Loader";
+const char* MAIN_METHOD = "load";
+std::string sNiceName;
+std::string sAppDataDir;
+
+std::string jstringToString(JNIEnv * env, jstring jstr){
+    const char* str = env->GetStringUTFChars(jstr, 0);
+    return jstr ? std::string(str) : std::string();
+}
+
+void loadDex(JNIEnv* env, const char* niceName) {
+    if (access(DEX_PATH, F_OK) != 0) {
+        LOGE("Can't access %s.", DEX_PATH);
+        return;
     }
-    return ret;
+    jclass classloaderClass = env->FindClass("java/lang/ClassLoader");
+    jmethodID getsysClassloaderMethod = env->GetStaticMethodID(classloaderClass, "getSystemClassLoader", "()Ljava/lang/ClassLoader;");
+    jobject loader = env->CallStaticObjectMethod(classloaderClass, getsysClassloaderMethod);
+    jclass dexLoaderClass = env->FindClass("dalvik/system/DexClassLoader");
+    jmethodID initDexLoaderMethod = env->GetMethodID(dexLoaderClass, "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/ClassLoader;)V");
+    jobject dexLoader = env->NewObject(dexLoaderClass, initDexLoaderMethod,
+                                       env->NewStringUTF(DEX_PATH),
+                                       env->NewStringUTF((sAppDataDir + "/code_cache").c_str()),
+                                       NULL, loader);
+    jmethodID loadclassMethod = env->GetMethodID(dexLoaderClass, "loadClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+
+    jclass javaClientClass = (jclass)env->CallObjectMethod(dexLoader, loadclassMethod, env->NewStringUTF(MAIN_CLASS));
+    jmethodID mainMethod = env->GetStaticMethodID(javaClientClass, MAIN_METHOD, "(Ljava/lang/String;)V");
+    if (mainMethod == NULL) {
+        LOGE("Main method %s.%s not found.", MAIN_CLASS, MAIN_METHOD);
+        return;
+    }
+    env->CallStaticVoidMethod(javaClientClass, mainMethod, env->NewStringUTF(niceName));
 }
 
 static void forkAndSpecializePre(
@@ -32,7 +54,9 @@ static void forkAndSpecializePre(
     // Called "before" com_android_internal_os_Zygote_nativeForkAndSpecialize in frameworks/base/core/jni/com_android_internal_os_Zygote.cpp
     // Parameters are pointers, you can change the value of them if you want
     // Some parameters are not exist is older Android versions, in this case, they are null or 0
-    __android_log_print(ANDROID_LOG_DEBUG, "test", "forkAndSpecializePre 111 %s", jstringToC(env, *niceName));
+
+    sNiceName = jstringToString(env, *niceName);
+    sAppDataDir = jstringToString(env, *appDataDir);
 }
 
 static void forkAndSpecializePost(JNIEnv *env, jclass clazz, jint res) {
@@ -46,12 +70,17 @@ static void forkAndSpecializePost(JNIEnv *env, jclass clazz, jint res) {
         // If this modules has hooks installed, DONOT set it to true, or there will be SIGSEGV
         // This value will be automatically reset to false before the "pre" function is called
         riru_set_unload_allowed(true);
+
+        char prefPath[100] = {0};
+        sprintf(prefPath, "%s/%s.pref", FOLDER, sNiceName.c_str());
+        if (access(prefPath, F_OK) == 0) {
+            LOGD("Load dex for %s", sNiceName.c_str());
+            loadDex(env, sNiceName.c_str());
+        }
     } else {
         // In zygote process
     }
 }
-
-
 
 static void specializeAppProcessPre(
         JNIEnv *env, jclass clazz, jint *uid, jint *gid, jintArray *gids, jint *runtimeFlags,
@@ -59,7 +88,6 @@ static void specializeAppProcessPre(
         jboolean *startChildZygote, jstring *instructionSet, jstring *appDataDir,
         jboolean *isTopApp, jobjectArray *pkgDataInfoList, jobjectArray *whitelistedDataInfoList,
         jboolean *bindMountAppDataDirs, jboolean *bindMountAppStorageDirs) {
-    __android_log_print(ANDROID_LOG_DEBUG, "test", "specializeAppProcessPre 1121 %s", jstringToC(env, *niceName));
     // Called "before" com_android_internal_os_Zygote_nativeSpecializeAppProcess in frameworks/base/core/jni/com_android_internal_os_Zygote.cpp
     // Parameters are pointers, you can change the value of them if you want
     // Some parameters are not exist is older Android versions, in this case, they are null or 0
@@ -67,7 +95,6 @@ static void specializeAppProcessPre(
 
 static void specializeAppProcessPost(
         JNIEnv *env, jclass clazz) {
-    __android_log_print(ANDROID_LOG_DEBUG, "test", "specializeAppProcessPost 111 2");
     // Called "after" com_android_internal_os_Zygote_nativeSpecializeAppProcess in frameworks/base/core/jni/com_android_internal_os_Zygote.cpp
 
     // When unload allowed is true, the module will be unloaded (dlclose) by Riru
