@@ -14,3 +14,6 @@
 .cxx
 local.properties
 out/
+*-release.zip
+app-release-*.apk
+app/release/

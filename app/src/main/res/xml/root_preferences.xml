@@ -11,6 +11,9 @@
         <Preference
             app:fragment="li.lingfeng.magi.fragments.EntertainmentPrefFragment"
             app:title="@string/pref_header_entertainment" />
+        <Preference
+            app:fragment="li.lingfeng.magi.fragments.ShoppingPrefFragment"
+            app:title="@string/pref_header_shopping" />
     </PreferenceCategory>
 
 </PreferenceScreen>

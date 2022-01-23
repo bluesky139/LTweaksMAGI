@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <!-- The values below are used for pref keys, should never be changed. -->
-    <!--Entertainment-->
-    <string name="key_bilibili_expand_desc">key_bilibili_expand_desc</string>
-</resources>

@@ -7,6 +7,15 @@
     <string name="status_error">ERROR! Check logcat for more details.</string>
     <string name="title_category">Category</string>
 
+    <!--Shopping-->
+    <string name="pref_header_shopping">Shopping</string>
+    <string name="pref_category_alipay">Alipay</string>
+    <string name="pref_alipay_fingerprint">Use fingerprint to confirm payment</string>
+    <string name="pref_alipay_fingerprint_summary">Use password for first payment, then fingerprint can be used at next time</string>
+    <string name="pref_category_taobao">Taobao</string>
+    <string name="pref_taobao_fingerprint">Use fingerprint to confirm payment</string>
+    <string name="pref_taobao_fingerprint_summary">Use password for first payment, then fingerprint can be used at next time</string>
+
     <!--Entertainment-->
     <string name="pref_header_entertainment">Entertainment</string>
     <string name="pref_category_bilibili">Bilibili</string>

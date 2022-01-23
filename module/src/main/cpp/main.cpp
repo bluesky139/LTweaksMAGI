@@ -91,6 +91,9 @@ static void specializeAppProcessPre(
     // Called "before" com_android_internal_os_Zygote_nativeSpecializeAppProcess in frameworks/base/core/jni/com_android_internal_os_Zygote.cpp
     // Parameters are pointers, you can change the value of them if you want
     // Some parameters are not exist is older Android versions, in this case, they are null or 0
+
+    sNiceName = jstringToString(env, *niceName);
+    sAppDataDir = jstringToString(env, *appDataDir);
 }
 
 static void specializeAppProcessPost(
@@ -101,6 +104,13 @@ static void specializeAppProcessPost(
     // If this modules has hooks installed, DONOT set it to true, or there will be SIGSEGV
     // This value will be automatically reset to false before the "pre" function is called
     riru_set_unload_allowed(true);
+
+    char prefPath[100] = {0};
+    sprintf(prefPath, "%s/%s.pref", FOLDER, sNiceName.c_str());
+    if (access(prefPath, F_OK) == 0) {
+        LOGD("Load dex for %s", sNiceName.c_str());
+        loadDex(env, sNiceName.c_str());
+    }
 }
 
 static void forkSystemServerPre(

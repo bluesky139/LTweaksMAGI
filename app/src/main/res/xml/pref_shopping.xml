@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_category_alipay">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="alipay_fingerprint"
+            android:title="@string/pref_alipay_fingerprint"
+            android:summary="@string/pref_alipay_fingerprint_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_taobao">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="taobao_fingerprint"
+            android:title="@string/pref_taobao_fingerprint"
+            android:summary="@string/pref_taobao_fingerprint_summary" />
+    </PreferenceCategory>
+</PreferenceScreen>
