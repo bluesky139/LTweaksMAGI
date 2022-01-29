@@ -20,4 +20,16 @@
     <string name="pref_header_entertainment">Entertainment</string>
     <string name="pref_category_bilibili">Bilibili</string>
     <string name="pref_bilibili_expand_desc">Expand description by default</string>
+
+    <!--System-->
+    <string name="pref_header_system">System / Tools</string>
+    <string name="pref_category_text">Text</string>
+    <string name="pref_text_selectable_text">Selectable Text</string>
+    <string name="pref_text_selectable_text_summary">Add a item in share menu, to display or reprocess shared text</string>
+    <string name="pref_category_system_share">System Share</string>
+    <string name="pref_system_share_copy_to_share">Copy to share</string>
+    <string name="pref_system_share_copy_to_share_summary">When you copy text, a snackbar will appear for you to trigger share action</string>
+
+    <!-- Text -->
+    <string name="text_selectable">Selectable Text</string>
 </resources>

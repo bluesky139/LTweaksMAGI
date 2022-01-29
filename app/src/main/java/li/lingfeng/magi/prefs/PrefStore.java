@@ -22,7 +22,7 @@ public class PrefStore extends PreferenceDataStore {
 
     private JSONObject load(String key) {
         File file = getFile(key);
-        if (file.exists()) {
+        if (file != null && file.exists()) {
             try {
                 String content = FileUtils.readFileToString(file);
                 return JSON.parseObject(content);
@@ -47,6 +47,9 @@ public class PrefStore extends PreferenceDataStore {
 
     private void doSave(String key, JSONObject jPref) {
         File file = getFile(key);
+        if (file == null) {
+            return;
+        }
         try {
             if (jPref.isEmpty()) {
                 if (file.exists()) {
@@ -62,7 +65,7 @@ public class PrefStore extends PreferenceDataStore {
 
     private File getFile(String key) {
         String packageName = L.keyToPackage(key);
-        return new File(FOLDER + "/" + packageName + ".pref");
+        return packageName != null ? new File(FOLDER + "/" + packageName + ".pref") : null;
     }
 
     @Override

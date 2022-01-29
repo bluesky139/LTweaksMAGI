@@ -117,7 +117,7 @@ public class Processor extends AbstractProcessor {
             writer.write("                return \"" + kv.getValue() + "\";\n");
         }
         writer.write("        }\n");
-        writer.write("        throw new UnsupportedOperationException(\"keyToPackage unknown key \" + key);\n");
+        writer.write("        return null;\n");
         writer.write("    }\n");
 
         writer.write("}");

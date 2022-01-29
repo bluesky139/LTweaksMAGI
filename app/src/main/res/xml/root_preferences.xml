@@ -9,11 +9,14 @@
 
     <PreferenceCategory app:title="@string/title_category">
         <Preference
+            app:fragment="li.lingfeng.magi.fragments.ShoppingPrefFragment"
+            app:title="@string/pref_header_shopping" />
+        <Preference
             app:fragment="li.lingfeng.magi.fragments.EntertainmentPrefFragment"
             app:title="@string/pref_header_entertainment" />
         <Preference
-            app:fragment="li.lingfeng.magi.fragments.ShoppingPrefFragment"
-            app:title="@string/pref_header_shopping" />
+            app:fragment="li.lingfeng.magi.fragments.SystemPrefFragment"
+            app:title="@string/pref_header_system" />
     </PreferenceCategory>
 
 </PreferenceScreen>

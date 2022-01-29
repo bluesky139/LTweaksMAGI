@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_category_text">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="text_selectable_text"
+            android:title="@string/pref_text_selectable_text"
+            android:summary="@string/pref_text_selectable_text_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_system_share">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="system_share_copy_to_share"
+            android:title="@string/pref_system_share_copy_to_share"
+            android:summary="@string/pref_system_share_copy_to_share_summary" />
+    </PreferenceCategory>
+</PreferenceScreen>

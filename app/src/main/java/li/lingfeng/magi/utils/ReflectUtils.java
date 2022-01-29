@@ -8,11 +8,35 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class ReflectUtils {
 
+    private static Method setHiddenApiExemptionsMethod;
+    private static Object sVmRuntime;
+    private static HashSet<String> apiExemptions = new HashSet<>();
     private static HashMap<String, Field> fieldCache = new HashMap<>();
     private static HashMap<String, Method> methodCache = new HashMap<>();
+
+    public static void addHiddenApiExemptions(String... signatures) {
+        for (String signature : signatures) {
+            apiExemptions.add(signature);
+        }
+        try {
+            // https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/BootstrapClass.java
+            if (setHiddenApiExemptionsMethod == null) {
+                Method forName = Class.class.getDeclaredMethod("forName", String.class);
+                Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+                Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
+                Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
+                setHiddenApiExemptionsMethod = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
+                sVmRuntime = getRuntime.invoke(null);
+            }
+            setHiddenApiExemptionsMethod.invoke(sVmRuntime, new Object[]{apiExemptions.toArray(new String[0])});
+        } catch (Throwable e) {
+            Logger.e("Failed to setHiddenApiExemptions.", e);
+        }
+    }
 
     public static Object callMethod(Object obj, String methodName, Object... args) throws Throwable {
         Method method = findMethod(obj.getClass(), methodName, Arrays.stream(args).map(Object::getClass).toArray(Class[]::new));
@@ -62,6 +86,7 @@ public class ReflectUtils {
     }
 
     private static Method _findMethod(Class cls, String methodName, Class[] parameterTypes) throws Throwable {
+        addHiddenApiExemptions("L" + cls.getName().replace('.', '/') + ';');
         try {
             return cls.getDeclaredMethod(methodName, parameterTypes);
         } catch (NoSuchMethodException e) {
