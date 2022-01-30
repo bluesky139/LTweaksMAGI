@@ -16,6 +16,7 @@ public class Loader {
 
     private static TweakBase[] sTweaks;
     private static Application sApp;
+    private static Handler sMainHandler;
 
     public static void load(String niceName) {
         Logger.d("Loader.load() " + niceName);
@@ -43,13 +44,12 @@ public class Loader {
                     pool.schedule(this, 200, TimeUnit.MILLISECONDS);
                     return;
                 }
-                Looper looper = Looper.getMainLooper();
-                if (looper == null) {
+                Handler handler = getMainHandler();
+                if (handler == null) {
                     Logger.v("Wait main looper ready.");
                     pool.schedule(this, 200, TimeUnit.MILLISECONDS);
                     return;
                 }
-                Handler handler = new Handler(looper);
                 handler.post(runnable);
             }
         };
@@ -67,5 +67,35 @@ public class Loader {
         } catch (Throwable e) {
             return null;
         }
+    }
+
+    public static Handler getMainHandler() {
+        if (sMainHandler != null) {
+            return sMainHandler;
+        }
+        Looper looper = Looper.getMainLooper();
+        if (looper == null) {
+            return null;
+        }
+        sMainHandler = new Handler(looper);
+        return sMainHandler;
+    }
+
+    public interface OnReadyRunnable {
+        boolean run();
+        void onReady();
+    }
+
+    public static void onMainReady(OnReadyRunnable runnable, long interval) {
+        sMainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (runnable.run()) {
+                    runnable.onReady();
+                } else {
+                    sMainHandler.postDelayed(this, interval);
+                }
+            }
+        }, interval);
     }
 }

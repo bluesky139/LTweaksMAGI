@@ -29,8 +29,8 @@ public class Dex {
         try {
             if (!new File(FOLDER).exists()) {
                 Shell.Result result = Shell.su("mkdir " + FOLDER
-                        + " && chmod 777 " + FOLDER
-                        + " && chcon u:object_r:app_data_file:s0 " + FOLDER).exec();
+                        + " && chmod 755 " + FOLDER
+                        + " && chcon u:object_r:dalvikcache_data_file:s0 " + FOLDER).exec();
                 if (result.getCode() != 0) {
                     throw new Exception("Can't create " + FOLDER);
                 }

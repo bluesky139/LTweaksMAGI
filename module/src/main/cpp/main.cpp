@@ -126,6 +126,7 @@ static void forkSystemServerPost(JNIEnv *env, jclass clazz, jint res) {
 
     if (res == 0) {
         // In system server process
+        loadDex(env, "android");
     } else {
         // In zygote process
     }

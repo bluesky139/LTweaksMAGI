@@ -53,7 +53,7 @@ public class PrefStore extends PreferenceDataStore {
         try {
             if (jPref.isEmpty()) {
                 if (file.exists()) {
-                    FileUtils.delete(file);
+                    FileWriter.delete(file);
                 }
             } else {
                 FileWriter.write(file, jPref.toString());
