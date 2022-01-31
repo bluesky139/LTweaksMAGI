@@ -1,15 +1,14 @@
 package li.lingfeng.magi.services;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-
-import org.apache.commons.lang3.StringUtils;
 
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorListener;
@@ -22,13 +21,14 @@ import li.lingfeng.magi.utils.SimpleSnackbar;
 
 import static li.lingfeng.magi.utils.SimpleSnackbar.FAST_OUT_SLOW_IN_INTERPOLATOR;
 
-public class CopyToShareService extends ForegroundService implements ClipboardManager.OnPrimaryClipChangedListener {
+public class CopyToShareService extends ForegroundService {
 
+    public static final String CLIP_CHANGE_ACTION = "li.lingfeng.magi.CLIP_CHANGE_ACTION";
     private Handler mHandler;
     private WindowManager.LayoutParams mLayoutParams;
     private WindowManager mWindowManager;
     private SimpleSnackbar mSnackbar;
-    private ClipboardManager mClipboardManager;
+    private BroadcastReceiver mReceiver;
 
     @Override
     public void onCreate() {
@@ -42,7 +42,6 @@ public class CopyToShareService extends ForegroundService implements ClipboardMa
         mLayoutParams.gravity = Gravity.BOTTOM;
         mLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         mLayoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        mClipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         prepareClipboardListener();
     }
 
@@ -52,28 +51,26 @@ public class CopyToShareService extends ForegroundService implements ClipboardMa
     }
 
     private void prepareClipboardListener() {
-        mClipboardManager.addPrimaryClipChangedListener(this);
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                onClipChanged(intent.getStringExtra("text"),
+                        intent.getIntExtra("ltweaks_clip_uid", 0));
+            }
+        };
+        IntentFilter filter = new IntentFilter(CLIP_CHANGE_ACTION);
+        registerReceiver(mReceiver, filter);
     }
 
-    @Override
-    public void onPrimaryClipChanged() {
+    public void onClipChanged(String text, int referrer) {
         try {
-            ClipData clipData = mClipboardManager.getPrimaryClip();
-            if (clipData == null) {
-                return;
-            }
-            final CharSequence text = clipData.getItemCount() > 0 ? clipData.getItemAt(0).getText() : null;
-            if (StringUtils.isEmpty(text)) {
-                return;
-            }
-            Logger.v("Text from clip: " + text);
             dismiss();
-            int referrer = clipData.getDescription() == null ? 0 : clipData.getDescription().getExtras().getInt("ltweaks_clip_uid");
+            Logger.d("Show snackbar for text: " + text);
             mSnackbar = SimpleSnackbar.make(this, "Got text", SimpleSnackbar.LENGTH_LONG)
-                    .setAction(ContextUtils.getLDrawable(R.drawable.ic_search), (v) -> ShareUtils.searchText(this, text.toString(), referrer))
-                    .setAction(ContextUtils.getLDrawable(R.drawable.ic_incognito), (v) -> ShareUtils.incognitoText(this, text.toString()))
-                    .setAction(ContextUtils.getLDrawable(R.drawable.ic_edit), (v) -> ShareUtils.selectText(this, text.toString(), referrer))
-                    .setAction(ContextUtils.getLDrawable(R.drawable.abc_ic_menu_share_mtrl_alpha), (v) -> ShareUtils.shareText(this, text.toString(), referrer));
+                    .setAction(ContextUtils.getLDrawable(R.drawable.ic_search), (v) -> ShareUtils.searchText(this, text, referrer))
+                    .setAction(ContextUtils.getLDrawable(R.drawable.ic_incognito), (v) -> ShareUtils.incognitoText(this, text))
+                    .setAction(ContextUtils.getLDrawable(R.drawable.ic_edit), (v) -> ShareUtils.selectText(this, text, referrer))
+                    .setAction(ContextUtils.getLDrawable(R.drawable.abc_ic_menu_share_mtrl_alpha), (v) -> ShareUtils.shareText(this, text, referrer));
             mWindowManager.addView(mSnackbar, mLayoutParams);
             mSnackbar.setAlpha(0f);
             mHandler.post(() -> {
@@ -112,6 +109,7 @@ public class CopyToShareService extends ForegroundService implements ClipboardMa
 
                         @Override
                         public void onAnimationEnd(View view) {
+                            view.setAlpha(0f);
                             mWindowManager.removeView(view);
                         }
 
@@ -127,6 +125,6 @@ public class CopyToShareService extends ForegroundService implements ClipboardMa
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mClipboardManager.removePrimaryClipChangedListener(this);
+        unregisterReceiver(mReceiver);
     }
 }

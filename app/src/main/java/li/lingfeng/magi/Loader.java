@@ -30,23 +30,24 @@ public class Loader {
                 Logger.v("Load " + tweak.getClass() + " for " + niceName);
                 tweak.load(sApp);
             }
-        });
+        }, niceName);
     }
 
-    private static void onApplicationReady(Runnable runnable) {
+    // TODO: add a timeout to stop
+    private static void onApplicationReady(Runnable runnable, String niceName) {
         ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
         Runnable task = new Runnable() {
             @Override
             public void run() {
                 Application application = getApplication();
                 if (application == null) {
-                    Logger.v("Wait application ready.");
+                    Logger.v("Wait application ready, " + niceName);
                     pool.schedule(this, 200, TimeUnit.MILLISECONDS);
                     return;
                 }
                 Handler handler = getMainHandler();
                 if (handler == null) {
-                    Logger.v("Wait main looper ready.");
+                    Logger.v("Wait main looper ready, " + niceName);
                     pool.schedule(this, 200, TimeUnit.MILLISECONDS);
                     return;
                 }

@@ -11,19 +11,14 @@ public class PackageNames {
     // Google
     public static final String GMS = "com.google.android.gms";
     public static final String GOOGLE = "com.google.android.googlequicksearchbox";
-    public static final String GOOGLE_PLUS = "com.google.android.apps.plus";
     public static final String GOOGLE_PHOTOS = "com.google.android.apps.photos";
     public static final String GOOGLE_MAP = "com.google.android.apps.maps";
-    public static final String GOOGLE_NEWSSTAND = "com.google.android.apps.magazines";
-    public static final String GOOGLE_BOOKS = "com.google.android.apps.books";
     public static final String GOOGLE_PLAY = "com.android.vending";
     public static final String GOOGLE_MESSENGER = "com.google.android.apps.messaging";
     public static final String CHROME = "com.android.chrome";
-    public static final String CHROME_BETA = "com.chrome.beta";
-    public static final String CHROME_CANARY = "com.chrome.canary";
-    public static final String CHROME_DEV = "com.chrome.dev";
     public static final String YOUTUBE = "com.google.android.youtube";
     public static final String GOOGLE_DIALER = "com.google.android.dialer";
+    public static final String GBOARD = "com.google.android.inputmethod.latin";
 
     // Shopping
     public static final String SMZDM = "com.smzdm.client.android";

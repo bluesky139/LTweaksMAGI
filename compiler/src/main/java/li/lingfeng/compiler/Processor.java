@@ -113,6 +113,9 @@ public class Processor extends AbstractProcessor {
         writer.write("    public static String keyToPackage(String key) {\n");
         writer.write("        switch (key) {\n");
         for (Map.Entry<String, String> kv : keyToPackages.entrySet()) {
+            if (kv.getKey() == null || kv.getKey().isEmpty()) {
+                continue;
+            }
             writer.write("            case \"" + kv.getKey() + "\":\n");
             writer.write("                return \"" + kv.getValue() + "\";\n");
         }

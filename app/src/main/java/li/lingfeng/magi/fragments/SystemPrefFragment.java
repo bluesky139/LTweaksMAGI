@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import li.lingfeng.magi.R;
 import li.lingfeng.magi.activities.SelectableTextActivity;
 import li.lingfeng.magi.services.CopyToShareService;
@@ -22,8 +23,14 @@ public class SystemPrefFragment extends BasePrefFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkAndWatchPrefForComponentState("text_selectable_text", SelectableTextActivity.class);
-        checkAndWatchPrefForComponentState("system_share_copy_to_share", CopyToShareService.class, enabled -> {
-            getActivity().startService(new Intent(getContext(), CopyToShareService.class));
+        findPreference("system_share_copy_to_share").setOnPreferenceChangeListener((preference, newValue) -> {
+            Intent intent = new Intent(getContext(), CopyToShareService.class);
+            if ((boolean) newValue) {
+                getActivity().startForegroundService(intent);
+            } else {
+                getActivity().stopService(intent);
+            }
+            return true;
         });
     }
 }

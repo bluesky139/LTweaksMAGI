@@ -28,7 +28,7 @@
     <string name="pref_text_selectable_text_summary">Add a item in share menu, to display or reprocess shared text</string>
     <string name="pref_category_system_share">System Share</string>
     <string name="pref_system_share_copy_to_share">Copy to share</string>
-    <string name="pref_system_share_copy_to_share_summary">When you copy text, a snackbar will appear for you to trigger share action</string>
+    <string name="pref_system_share_copy_to_share_summary">When you copy text, a snackbar will appear for you to trigger share action.\nGboard must be default input method</string>
 
     <!-- Text -->
     <string name="text_selectable">Selectable Text</string>
