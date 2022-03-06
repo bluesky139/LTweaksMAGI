@@ -1,6 +1,5 @@
 package li.lingfeng.magi.tweaks.system;
 
-import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.ClipboardManager;
@@ -13,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import li.lingfeng.lib.AppLoad;
 import li.lingfeng.magi.prefs.PackageNames;
 import li.lingfeng.magi.services.CopyToShareService;
-import li.lingfeng.magi.tweaks.TweakBase;
+import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.utils.Logger;
 
 @AppLoad(packageName = PackageNames.GBOARD, pref = "system_share_copy_to_share")
@@ -22,8 +21,8 @@ public class GboardClipboardReceiver extends TweakBase implements ClipboardManag
     private ClipboardManager mClipboardManager;
 
     @Override
-    public void load(Application app) {
-        super.load(app);
+    public void load() {
+        super.load();
         listenClipboard();
     }
 

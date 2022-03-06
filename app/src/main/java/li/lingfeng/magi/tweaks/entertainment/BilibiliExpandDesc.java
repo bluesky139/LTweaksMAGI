@@ -11,9 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import li.lingfeng.lib.AppLoad;
-import li.lingfeng.magi.R;
 import li.lingfeng.magi.prefs.PackageNames;
-import li.lingfeng.magi.tweaks.TweakBase;
+import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.utils.Logger;
 import li.lingfeng.magi.utils.ViewUtils;
 

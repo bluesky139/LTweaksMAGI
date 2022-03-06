@@ -21,7 +21,7 @@ import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import li.lingfeng.magi.tweaks.TweakBase;
+import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.utils.AESUtils;
 import li.lingfeng.magi.utils.ContextUtils;
 import li.lingfeng.magi.utils.Logger;

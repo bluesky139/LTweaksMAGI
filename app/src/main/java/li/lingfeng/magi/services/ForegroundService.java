@@ -27,7 +27,8 @@ public abstract class ForegroundService extends Service {
         try {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             Intent intent = new Intent(getClass().getName());
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             String title = getClass().getSimpleName();
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)

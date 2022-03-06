@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_category_chrome">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="chrome_incognito_search"
+            android:title="@string/pref_chrome_incognito_search"
+            android:summary="@string/pref_chrome_incognito_search_summary" />
+    </PreferenceCategory>
+</PreferenceScreen>

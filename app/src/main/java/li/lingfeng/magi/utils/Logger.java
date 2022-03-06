@@ -179,7 +179,10 @@ public class Logger {
 
     public static void clsMethods(Object instance) throws Throwable {
         Logger.d("clsMethods " + instance);
-        Class cls = instance.getClass();
+        clsMethods(instance.getClass());
+    }
+
+    public static void clsMethods(Class cls) throws Throwable {
         List<Class<?>> classes = (List<Class<?>>) ReflectUtils.callStaticMethod(MethodUtils.class, "getAllSuperclassesAndInterfaces", cls);
         classes.add(0, cls);
         for (Class<?> acls : classes) {

@@ -4,17 +4,21 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 
+import org.lsposed.hiddenapibypass.HiddenApiBypass;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import li.lingfeng.magi.tweaks.TweakBase;
+import li.lingfeng.magi.tweaks.base.TweakBase;
+import li.lingfeng.magi.tweaks.proxy.ServiceManagerProxy;
 import li.lingfeng.magi.utils.Logger;
 import li.lingfeng.magi.utils.ReflectUtils;
 
 public class Loader {
 
     private static TweakBase[] sTweaks;
+    private static ServiceManagerProxy sServiceManagerProxy;
     private static Application sApp;
     private static Handler sMainHandler;
 
@@ -25,12 +29,18 @@ public class Loader {
             Logger.e("No tweaks for " + niceName + ", dex should not be loaded.");
             return;
         }
-        onApplicationReady(() -> {
-            for (TweakBase tweak : sTweaks) {
-                Logger.v("Load " + tweak.getClass() + " for " + niceName);
-                tweak.load(sApp);
-            }
-        }, niceName);
+
+        HiddenApiBypass.setHiddenApiExemptions(
+                "Landroid/os/ServiceManager;",
+                "Landroid/app/IActivityManager;",
+                "Landroid/app/IActivityManager$Stub;",
+                "Landroid/app/IActivityTaskManager;",
+                "Landroid/app/IActivityTaskManager$Stub;",
+                "Landroid/widget/TextView;->mEditor:Landroid/widget/Editor;",
+                "Landroid/widget/Editor;->startSelectionActionModeAsync(Z)V");
+
+        sServiceManagerProxy = new ServiceManagerProxy(sTweaks);
+        sServiceManagerProxy.proxy();
     }
 
     // TODO: add a timeout to stop

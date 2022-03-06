@@ -7,7 +7,13 @@
     <string name="status_error">ERROR! Check logcat for more details.</string>
     <string name="title_category">Category</string>
 
-    <!--Shopping-->
+    <!-- Google -->
+    <string name="pref_header_google">Google</string>
+    <string name="pref_category_chrome">Chrome</string>
+    <string name="pref_chrome_incognito_search">Incognito search</string>
+    <string name="pref_chrome_incognito_search_summary">Incognito search, incognito url open</string>
+
+    <!-- Shopping -->
     <string name="pref_header_shopping">Shopping</string>
     <string name="pref_category_alipay">Alipay</string>
     <string name="pref_alipay_fingerprint">Use fingerprint to confirm payment</string>
@@ -16,12 +22,12 @@
     <string name="pref_taobao_fingerprint">Use fingerprint to confirm payment</string>
     <string name="pref_taobao_fingerprint_summary">Use password for first payment, then fingerprint can be used at next time</string>
 
-    <!--Entertainment-->
+    <!-- Entertainment -->
     <string name="pref_header_entertainment">Entertainment</string>
     <string name="pref_category_bilibili">Bilibili</string>
     <string name="pref_bilibili_expand_desc">Expand description by default</string>
 
-    <!--System-->
+    <!-- System -->
     <string name="pref_header_system">System / Tools</string>
     <string name="pref_category_text">Text</string>
     <string name="pref_text_selectable_text">Selectable Text</string>

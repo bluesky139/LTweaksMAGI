@@ -8,35 +8,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class ReflectUtils {
 
-    private static Method setHiddenApiExemptionsMethod;
-    private static Object sVmRuntime;
-    private static HashSet<String> apiExemptions = new HashSet<>();
     private static HashMap<String, Field> fieldCache = new HashMap<>();
     private static HashMap<String, Method> methodCache = new HashMap<>();
-
-    public static void addHiddenApiExemptions(String... signatures) {
-        for (String signature : signatures) {
-            apiExemptions.add(signature);
-        }
-        try {
-            // https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/BootstrapClass.java
-            if (setHiddenApiExemptionsMethod == null) {
-                Method forName = Class.class.getDeclaredMethod("forName", String.class);
-                Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
-                Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
-                Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
-                setHiddenApiExemptionsMethod = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
-                sVmRuntime = getRuntime.invoke(null);
-            }
-            setHiddenApiExemptionsMethod.invoke(sVmRuntime, new Object[]{apiExemptions.toArray(new String[0])});
-        } catch (Throwable e) {
-            Logger.e("Failed to setHiddenApiExemptions.", e);
-        }
-    }
 
     public static Object callMethod(Object obj, String methodName, Object... args) throws Throwable {
         Method method = findMethod(obj.getClass(), methodName, Arrays.stream(args).map(Object::getClass).toArray(Class[]::new));
@@ -60,6 +36,10 @@ public class ReflectUtils {
         Method method = findMethod(cls, methodName, parameterTypes);
         method.setAccessible(true);
         return method.invoke(null, args);
+    }
+
+    public static Method findMethod(Class cls, String methodName) throws Throwable {
+        return findMethod(cls, methodName, new Class[0]);
     }
 
     public static Method findMethod(Class cls, String methodName, Class[] parameterTypes) throws Throwable {
@@ -86,7 +66,6 @@ public class ReflectUtils {
     }
 
     private static Method _findMethod(Class cls, String methodName, Class[] parameterTypes) throws Throwable {
-        addHiddenApiExemptions("L" + cls.getName().replace('.', '/') + ';');
         try {
             return cls.getDeclaredMethod(methodName, parameterTypes);
         } catch (NoSuchMethodException e) {
@@ -262,6 +241,10 @@ public class ReflectUtils {
     public static Object newInstance(Class cls, Object[] args, Class[] parameterTypes) throws Throwable {
         Constructor constructor = getConstructor(cls, parameterTypes);
         return constructor.newInstance(args);
+    }
+
+    public static Class findClass(String className) throws ClassNotFoundException {
+        return Class.forName(className, false, ClassLoader.getSystemClassLoader());
     }
 
     public static Class findClass(String className, ClassLoader classLoader) throws ClassNotFoundException {

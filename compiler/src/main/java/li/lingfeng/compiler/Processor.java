@@ -22,6 +22,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.ElementFilter;
@@ -90,8 +91,22 @@ public class Processor extends AbstractProcessor {
             keyToPackages.put(load.pref(), load.packageName());
         }
 
+        for (Element root : env.getRootElements()) {
+            if (root.getSimpleName().toString().equals("IMethodBase")) {
+                mMessager.printMessage(Diagnostic.Kind.NOTE, "root child " + root);
+            }
+
+        }
+            /*for (Element methodDeclaration :elem.getEnclosedElements())
+                if (methodDeclaration instanceof ExecutableElement) {
+                    ((ExecutableElement) methodDeclaration).getParameters().forEach(p -> {
+                        mMessager.printMessage(Diagnostic.Kind.NOTE, " p " + p);
+                    });
+                }*/
+
+
         writer.write("package li.lingfeng.magi;\n\n");
-        writer.write("import li.lingfeng.magi.tweaks.TweakBase;\n\n");
+        writer.write("import li.lingfeng.magi.tweaks.base.TweakBase;\n\n");
         writer.write("public class L {\n\n");
 
         writer.write("    public static TweakBase[] instantiateTweaks(String niceName) {\n");
