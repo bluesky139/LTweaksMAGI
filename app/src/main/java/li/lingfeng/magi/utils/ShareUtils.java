@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
+import li.lingfeng.magi.activities.ChromeIncognitoActivity;
 import li.lingfeng.magi.activities.SelectableTextActivity;
 import li.lingfeng.magi.prefs.PackageNames;
 
@@ -32,11 +33,11 @@ public class ShareUtils {
     }
 
     public static void incognitoText(Context context, String text) {
-        /*Intent intent = new Intent(Intent.ACTION_PROCESS_TEXT);
+        Intent intent = new Intent(Intent.ACTION_PROCESS_TEXT);
         intent.setClassName(PackageNames.L_TWEAKS, ChromeIncognitoActivity.class.getName());
         intent.putExtra(Intent.EXTRA_PROCESS_TEXT, text);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);*/
+        context.startActivity(intent);
     }
 
     public static void shareText(Context context, String text) {

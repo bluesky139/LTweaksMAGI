@@ -35,9 +35,7 @@ public class Loader {
                 "Landroid/app/IActivityManager;",
                 "Landroid/app/IActivityManager$Stub;",
                 "Landroid/app/IActivityTaskManager;",
-                "Landroid/app/IActivityTaskManager$Stub;",
-                "Landroid/widget/TextView;->mEditor:Landroid/widget/Editor;",
-                "Landroid/widget/Editor;->startSelectionActionModeAsync(Z)V");
+                "Landroid/app/IActivityTaskManager$Stub;");
 
         sServiceManagerProxy = new ServiceManagerProxy(sTweaks);
         sServiceManagerProxy.proxy();

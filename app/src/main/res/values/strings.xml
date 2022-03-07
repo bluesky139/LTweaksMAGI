@@ -6,6 +6,7 @@
     <string name="status_reboot">Dex is just updated, reboot to take effect.</string>
     <string name="status_error">ERROR! Check logcat for more details.</string>
     <string name="title_category">Category</string>
+    <string name="not_supported">Not supported.</string>
 
     <!-- Google -->
     <string name="pref_header_google">Google</string>
@@ -38,4 +39,5 @@
 
     <!-- Text -->
     <string name="text_selectable">Selectable Text</string>
+    <string name="process_text_incognito_search">Incognito Search</string>
 </resources>

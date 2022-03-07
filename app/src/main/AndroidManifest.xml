@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,6 +39,26 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activities.ChromeIncognitoActivity"
+            android:taskAffinity="li.lingfeng.magi.activities.ChromeIncognitoActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/process_text_incognito_search"
+            android:theme="@android:style/Theme.Dialog"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="li.lingfeng.magi.ACTION_CHROME_INCOGNITO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
         <service android:name=".services.CopyToShareService" />
         <receiver android:name=".services.BootReceiver" android:exported="true">
             <intent-filter>
@@ -46,4 +67,8 @@
         </receiver>
 
     </application>
+
+    <queries>
+        <package android:name="com.android.chrome" />
+    </queries>
 </manifest>
