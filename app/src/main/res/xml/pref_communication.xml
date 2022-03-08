@@ -9,5 +9,9 @@
             android:defaultValue="false"
             android:key="ttrss_refresh_menu"
             android:title="@string/pref_ttrss_refresh_menu" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="ttrss_disable_article_pager"
+            android:title="@string/pref_ttrss_disable_article_pager" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -9,6 +9,8 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import li.lingfeng.magi.Loader;
+
 public class ReflectUtils {
 
     private static HashMap<String, Field> fieldCache = new HashMap<>();
@@ -244,7 +246,7 @@ public class ReflectUtils {
     }
 
     public static Class findClass(String className) throws ClassNotFoundException {
-        return Class.forName(className, false, ClassLoader.getSystemClassLoader());
+        return Class.forName(className, false, Loader.getApplication().getClassLoader());
     }
 
     public static Class findClass(String className, ClassLoader classLoader) throws ClassNotFoundException {
