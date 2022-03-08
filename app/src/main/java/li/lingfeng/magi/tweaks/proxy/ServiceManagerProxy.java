@@ -11,6 +11,7 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.lsposed.hiddenapibypass.HiddenApiBypass;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -41,6 +42,7 @@ public class ServiceManagerProxy {
 
     public void proxy() {
         try {
+            HiddenApiBypass.addHiddenApiExemptions("Landroid/os/ServiceManager;");
             Object original = ReflectUtils.callStaticMethod(ServiceManager.class, "getIServiceManager");
             Object proxy = Proxy.newProxyInstance(ClassLoader.getSystemClassLoader(), new Class[]{IServiceManager.class}, (_proxy, method, args) -> {
                 if ("getService".equals(method.getName())) {
@@ -53,9 +55,11 @@ public class ServiceManagerProxy {
                             if (p == null) {
                                 Logger.v("New " + name + " service proxy.");
                                 if ("activity".equals(name)) {
+                                    HiddenApiBypass.addHiddenApiExemptions("Landroid/app/IActivityManager");
                                     IActivityManager.Stub serviceProxy = new IActivityManagerProxy(IActivityManager.Stub.asInterface(o), mTweaks);
                                     p = newServiceProxy(serviceProxy, o);
                                 } else if ("activity_task".equals(name)) {
+                                    HiddenApiBypass.addHiddenApiExemptions("Landroid/app/IActivityTaskManager");
                                     IActivityTaskManager.Stub serviceProxy = new IActivityTaskManagerProxy(IActivityTaskManager.Stub.asInterface(o), mTweaks);
                                     p = newServiceProxy(serviceProxy, o);
                                 }
@@ -82,6 +86,8 @@ public class ServiceManagerProxy {
             int c = code.getInt(proxy);
             transactCodes.add(c);
         }
+
+        // https://github.com/Kr328/MagicLibrary/blob/main/library/src/main/java/com/github/kr328/magic/aidl/ServerProxy.java#L68
         return new Binder() {
             @Override
             protected boolean onTransact(int code, @NonNull Parcel data, @Nullable Parcel reply, int flags) throws RemoteException {

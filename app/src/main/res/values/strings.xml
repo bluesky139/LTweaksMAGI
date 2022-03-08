@@ -27,6 +27,8 @@
     <string name="pref_header_entertainment">Entertainment</string>
     <string name="pref_category_bilibili">Bilibili</string>
     <string name="pref_bilibili_expand_desc">Expand description by default</string>
+    <string name="pref_bilibili_disable_teen_mode_hint">Disable teen mode hint</string>
+    <string name="pref_bilibili_disable_splash">Disable splash</string>
 
     <!-- System -->
     <string name="pref_header_system">System / Tools</string>

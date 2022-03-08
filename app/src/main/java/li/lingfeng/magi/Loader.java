@@ -29,14 +29,6 @@ public class Loader {
             Logger.e("No tweaks for " + niceName + ", dex should not be loaded.");
             return;
         }
-
-        HiddenApiBypass.setHiddenApiExemptions(
-                "Landroid/os/ServiceManager;",
-                "Landroid/app/IActivityManager;",
-                "Landroid/app/IActivityManager$Stub;",
-                "Landroid/app/IActivityTaskManager;",
-                "Landroid/app/IActivityTaskManager$Stub;");
-
         sServiceManagerProxy = new ServiceManagerProxy(sTweaks);
         sServiceManagerProxy.proxy();
     }

@@ -26,7 +26,7 @@ public abstract class TweakBase extends IMethodBase implements Application.Activ
     // This method should not be override.
     @Override
     public Result getContentProvider(IApplicationThread caller, String callingPackage, String name, int userId, boolean stable) throws RemoteException {
-        return new Result().before(() -> {
+        return new Result().before((r) -> {
             if (mApp == null) {
                 mApp = Loader.getApplication();
                 if (mApp == null) {

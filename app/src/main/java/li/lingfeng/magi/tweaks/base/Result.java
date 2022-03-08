@@ -7,11 +7,11 @@ import li.lingfeng.magi.utils.Logger;
 public class Result {
 
     public interface Before {
-        void before() throws Throwable;
+        void before(Result r) throws Throwable;
     }
 
     public interface After {
-        void after() throws Throwable;
+        void after(Result r) throws Throwable;
     }
 
     public Object[] args;
@@ -41,7 +41,7 @@ public class Result {
     public void hookBefore() {
         if (before != null) {
             try {
-                before.before();
+                before.before(this);
             } catch (Throwable e) {
                 Logger.e("Hook before exception.", e);
             }
@@ -57,7 +57,7 @@ public class Result {
             return;
         }
         try {
-            after.after();
+            after.after(this);
         } catch (Throwable e) {
             Logger.e("Hook after execute exception.", e);
         }
