@@ -4,12 +4,15 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 
-import org.lsposed.hiddenapibypass.HiddenApiBypass;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import li.lingfeng.lib.AppLoad;
+import li.lingfeng.magi.prefs.PrefStore;
 import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.tweaks.proxy.ServiceManagerProxy;
 import li.lingfeng.magi.utils.Logger;
@@ -29,6 +32,10 @@ public class Loader {
             Logger.e("No tweaks for " + niceName + ", dex should not be loaded.");
             return;
         }
+        sTweaks = Arrays.stream(sTweaks).filter(t -> {
+            String key = t.getClass().getAnnotation(AppLoad.class).pref();
+            return StringUtils.isEmpty(key) || PrefStore.instance.contains(key);
+        }).toArray(TweakBase[]::new);
         sServiceManagerProxy = new ServiceManagerProxy(sTweaks);
         sServiceManagerProxy.proxy();
     }

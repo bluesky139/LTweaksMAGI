@@ -13,7 +13,7 @@ public abstract class BasePrefFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        getPreferenceManager().setPreferenceDataStore(new PrefStore());
+        getPreferenceManager().setPreferenceDataStore(PrefStore.instance);
     }
 
     protected void checkAndWatchPrefForComponentState(String key, Class componentCls) {

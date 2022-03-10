@@ -16,4 +16,12 @@
             android:title="@string/pref_system_share_copy_to_share"
             android:summary="@string/pref_system_share_copy_to_share_summary" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_solid_explorer">
+        <EditTextPreference
+            android:key="solid_explorer_replace_streaming_url"
+            android:title="@string/pref_solid_explorer_replace_streaming_url"
+            android:summary="@string/pref_solid_explorer_replace_streaming_url_summary" />
+    </PreferenceCategory>
 </PreferenceScreen>

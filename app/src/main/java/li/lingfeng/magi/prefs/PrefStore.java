@@ -13,24 +13,41 @@ import java.util.stream.Collectors;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceDataStore;
 import li.lingfeng.magi.L;
+import li.lingfeng.magi.Loader;
 import li.lingfeng.magi.utils.FileWriter;
 import li.lingfeng.magi.utils.Logger;
 
 public class PrefStore extends PreferenceDataStore {
 
     public static final String FOLDER = "/data/local/LTweaksMAGI";
+    public static PrefStore instance = new PrefStore();
+    private JSONObject mContent;
+    private boolean mKeepInMemory = Loader.getApplication() == null;
+
+    private PrefStore() {
+    }
 
     private JSONObject load(String key) {
+        JSONObject jContent = mContent;
+        if (jContent != null) {
+            return jContent;
+        }
         File file = getFile(key);
         if (file != null && file.exists()) {
             try {
                 String content = FileUtils.readFileToString(file);
-                return JSON.parseObject(content);
+                jContent = JSON.parseObject(content);
             } catch (Throwable e) {
                 Logger.e("Failed to load exist " + file);
             }
         }
-        return new JSONObject();
+        if (jContent == null) {
+            jContent = new JSONObject();
+        }
+        if (mKeepInMemory) {
+            mContent = jContent;
+        }
+        return jContent;
     }
 
     private void save(String key, Object value) {
@@ -146,5 +163,10 @@ public class PrefStore extends PreferenceDataStore {
     public boolean getBoolean(String key, boolean defValue) {
         JSONObject jPref = load(key);
         return jPref.containsKey(key) ? jPref.getBooleanValue(key) : defValue;
+    }
+
+    public boolean contains(String key) {
+        JSONObject jPref = load(key);
+        return jPref.containsKey(key);
     }
 }
