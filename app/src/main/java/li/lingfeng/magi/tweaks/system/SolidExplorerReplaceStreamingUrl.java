@@ -100,10 +100,12 @@ public class SolidExplorerReplaceStreamingUrl extends TweakBase {
                     Logger.v("Streaming url: " + newUrl);
 
                     // Stop streaming service
-                    Intent intent2 = new Intent();
-                    intent2.setClassName(PackageNames.SOLID_EXPLORER, STREAMING_SERVICE);
-                    intent2.putExtra("extra_id", 1);
-                    Loader.getApplication().startService(intent2);
+                    Loader.getMainHandler().post(() -> {
+                        Intent intent2 = new Intent();
+                        intent2.setClassName(PackageNames.SOLID_EXPLORER, STREAMING_SERVICE);
+                        intent2.putExtra("extra_id", 1);
+                        Loader.getApplication().startService(intent2);
+                    });
                 }
             }
         });
