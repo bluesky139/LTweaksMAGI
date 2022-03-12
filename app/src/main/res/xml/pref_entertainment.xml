@@ -13,5 +13,9 @@
             android:defaultValue="false"
             android:key="bilibili_disable_splash"
             android:title="@string/pref_bilibili_disable_splash" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="bilibili_remove_author_ad"
+            android:title="@string/pref_bilibili_remove_author_ad" />
     </PreferenceCategory>
 </PreferenceScreen>
