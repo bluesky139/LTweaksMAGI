@@ -38,9 +38,9 @@ public class ChromeIncognitoSearch extends TweakBase {
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
             // must post, or duplicated tab will be opened.
-            Loader.getMainHandler().post(() -> {
+            Loader.getMainHandler().postDelayed(() -> {
                 activity.startActivity(intent);
-            });
+            }, 500);
         }
     }
 }
