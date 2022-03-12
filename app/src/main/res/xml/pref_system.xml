@@ -18,6 +18,15 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/pref_category_quick_settings">
+        <EditTextPreference
+            android:inputType="number"
+            android:key="quick_settings_tile_set_preconfigured_brightness"
+            android:title="@string/pref_quick_settings_tile_set_preconfigured_brightness"
+            android:dialogMessage="@string/pref_quick_settings_tile_set_preconfigured_brightness_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/pref_category_solid_explorer">
         <EditTextPreference
             android:key="solid_explorer_replace_streaming_url"

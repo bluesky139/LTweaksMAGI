@@ -6,7 +6,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
 import li.lingfeng.magi.R;
 import li.lingfeng.magi.activities.SelectableTextActivity;
 import li.lingfeng.magi.services.CopyToShareService;
@@ -31,6 +30,23 @@ public class SystemPrefFragment extends BasePrefFragment {
                 getActivity().stopService(intent);
             }
             return true;
+        });
+
+        updateSummary("quick_settings_tile_set_preconfigured_brightness");
+        findPreference("quick_settings_tile_set_preconfigured_brightness").setOnPreferenceChangeListener((preference, _newValue) -> {
+            String newValue = (String) _newValue;
+            if (newValue.isEmpty()) {
+                preference.setSummary("");
+                return true;
+            }
+            try {
+                int value = Integer.parseInt(newValue);
+                if (value > 0 && value < 255) {
+                    preference.setSummary(newValue);
+                    return true;
+                }
+            } catch (Throwable e) {}
+            return false;
         });
     }
 }

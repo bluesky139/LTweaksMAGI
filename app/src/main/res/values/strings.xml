@@ -50,6 +50,9 @@
     <string name="pref_category_system_share">System Share</string>
     <string name="pref_system_share_copy_to_share">Copy to share</string>
     <string name="pref_system_share_copy_to_share_summary">When you copy text, a snackbar will appear for you to trigger share action.\nGboard must be default input method</string>
+    <string name="pref_category_quick_settings">Quick Settings in status bar</string>
+    <string name="pref_quick_settings_tile_set_preconfigured_brightness">Add tile \"Set xxx brightness\"</string>
+    <string name="pref_quick_settings_tile_set_preconfigured_brightness_summary">Valid range 1-254, leave empty to disable.\nLong press tile to set auto brightness.</string>
     <string name="pref_category_solid_explorer">Solid Explorer</string>
     <string name="pref_solid_explorer_replace_streaming_url">Replace streaming url</string>
     <string name="pref_solid_explorer_replace_streaming_url_summary">Replace server only, eg. SMB01:10.0.0.1,SMB02:10.0.0.2\nThus, player can access http://10.0.0.1/... to play video directly, instead of local redirect</string>

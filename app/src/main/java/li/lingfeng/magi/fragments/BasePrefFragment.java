@@ -31,4 +31,9 @@ public abstract class BasePrefFragment extends PreferenceFragmentCompat {
             return true;
         });
     }
+
+    protected void updateSummary(String key) {
+        String value = PrefStore.instance.getString(key, "");
+        findPreference(key).setSummary(value);
+    }
 }

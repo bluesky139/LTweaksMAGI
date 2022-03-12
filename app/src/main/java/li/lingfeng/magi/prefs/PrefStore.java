@@ -82,7 +82,10 @@ public class PrefStore extends PreferenceDataStore {
 
     private File getFile(String key) {
         String packageName = L.keyToPackage(key);
-        return packageName != null ? new File(FOLDER + "/" + packageName + ".pref") : null;
+        if (packageName == null) {
+            packageName = "main";
+        }
+        return new File(FOLDER + "/" + packageName + ".pref");
     }
 
     @Override
