@@ -23,4 +23,11 @@
             android:title="@string/pref_bilibili_search"
             android:summary="@string/pref_bilibili_search_summary" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_douban">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="douban_disable_splash"
+            android:title="@string/pref_douban_disable_splash" />
+    </PreferenceCategory>
 </PreferenceScreen>
