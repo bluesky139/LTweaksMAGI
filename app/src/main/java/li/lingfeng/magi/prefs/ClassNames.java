@@ -33,14 +33,4 @@ public class ClassNames {
     public static final String DECOR_VIEW = "com.android.internal.policy.DecorView";
     public static final String MENU_BUILDER = "com.android.internal.view.menu.MenuBuilder";
     public static final String APPLICATION_PACKAGE_MANAGER = "android.app.ApplicationPackageManager";
-
-    public static final String PROCESS_IMPL = "java.lang.ProcessImpl";
-    public static final String PROCESS_ENVIRONMENT = "java.lang.ProcessEnvironment";
-
-    public static final String RADIO_INFO = "com.android.settings.RadioInfo";
-
-    public static final String TEXT_ACTION_MODE_CALLBACK = "android.widget.Editor.TextActionModeCallback";
-
-    public static final String WE_CHAT_LAUNCHER_UI = "com.tencent.mm.ui.LauncherUI";
-    public static final String DOUBAN_SEARCH_ACTIVITY = "com.douban.frodo.search.activity.NewSearchActivity";
 }

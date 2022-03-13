@@ -13,5 +13,7 @@ public class EntertainmentPrefFragment extends BasePrefFragment {
         setPreferencesFromResource(R.xml.pref_entertainment, rootKey);
         checkAndWatchPrefForComponentState("bilibili_search",
                 "li.lingfeng.magi.activities.BilibiliProcessTextActivity");
+        checkAndWatchPrefForComponentState("douban_search",
+                "li.lingfeng.magi.activities.DoubanProcessTextActivity");
     }
 }

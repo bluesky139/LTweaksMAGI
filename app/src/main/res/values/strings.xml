@@ -47,6 +47,8 @@
     <string name="pref_bilibili_search_summary">Use floating menu with text selection</string>
     <string name="pref_category_douban">Douban</string>
     <string name="pref_douban_disable_splash">Disable splash</string>
+    <string name="pref_douban_search">Search in Douban with selected text</string>
+    <string name="pref_douban_search_summary">Use floating menu with text selection</string>
 
     <!-- System -->
     <string name="pref_header_system">System / Tools</string>
@@ -69,4 +71,5 @@
     <string name="text_selectable">Selectable Text</string>
     <string name="process_text_incognito_search">Incognito Search</string>
     <string name="process_text_bilibili">Bilibili</string>
+    <string name="process_text_douban">Douban</string>
 </resources>

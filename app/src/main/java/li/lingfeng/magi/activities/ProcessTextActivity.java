@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 import androidx.annotation.Nullable;
 import li.lingfeng.magi.R;
 import li.lingfeng.magi.prefs.PackageNames;
+import li.lingfeng.magi.tweaks.entertainment.DoubanSearch;
 import li.lingfeng.magi.utils.ComponentUtils;
 import li.lingfeng.magi.utils.Logger;
 
@@ -67,6 +68,14 @@ public class ProcessTextActivity extends Activity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setPackage(PackageNames.BILIBILI);
         intent.setData(Uri.parse("bilibili://search/" + text));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void douban(String text) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setClassName(PackageNames.DOUBAN, DoubanSearch.STATUS_SEARCH_ACTIVITY);
+        intent.putExtra("ltweaks_search_text", text);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

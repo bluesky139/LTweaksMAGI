@@ -57,6 +57,18 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity-alias>
+        <activity-alias
+            android:name=".activities.DoubanProcessTextActivity"
+            android:targetActivity=".activities.ProcessTextActivity"
+            android:label="@string/process_text_douban"
+            android:enabled="false"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity-alias>
 
         <activity android:name=".activities.ChromeIncognitoActivity"
             android:taskAffinity="li.lingfeng.magi.activities.ChromeIncognitoActivity"
@@ -108,5 +120,6 @@
 
     <queries>
         <package android:name="com.android.chrome" />
+        <package android:name="com.douban.frodo" />
     </queries>
 </manifest>

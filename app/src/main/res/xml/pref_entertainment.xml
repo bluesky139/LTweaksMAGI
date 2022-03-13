@@ -29,5 +29,10 @@
             android:defaultValue="false"
             android:key="douban_disable_splash"
             android:title="@string/pref_douban_disable_splash" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="douban_search"
+            android:title="@string/pref_douban_search"
+            android:summary="@string/pref_douban_search_summary" />
     </PreferenceCategory>
 </PreferenceScreen>
