@@ -45,6 +45,8 @@
     <string name="pref_bilibili_remove_author_ad">Remove author recommended ad</string>
     <string name="pref_bilibili_search">Search in Bilibili with selected text</string>
     <string name="pref_bilibili_search_summary">Use floating menu with text selection</string>
+    <string name="pref_bilibili_danmaku_off">Danmaku off by default</string>
+    <string name="pref_bilibili_danmaku_off_summary">You need toggle \"remember danmaku state\" on</string>
     <string name="pref_category_douban">Douban</string>
     <string name="pref_douban_disable_splash">Disable splash</string>
     <string name="pref_douban_search">Search in Douban with selected text</string>

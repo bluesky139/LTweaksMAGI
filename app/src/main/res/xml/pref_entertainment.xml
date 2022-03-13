@@ -22,6 +22,11 @@
             android:key="bilibili_search"
             android:title="@string/pref_bilibili_search"
             android:summary="@string/pref_bilibili_search_summary" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="bilibili_danmaku_off"
+            android:title="@string/pref_bilibili_danmaku_off"
+            android:summary="@string/pref_bilibili_danmaku_off_summary" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_douban">
