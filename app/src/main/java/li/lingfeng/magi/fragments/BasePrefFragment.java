@@ -16,11 +16,15 @@ public abstract class BasePrefFragment extends PreferenceFragmentCompat {
         getPreferenceManager().setPreferenceDataStore(PrefStore.instance);
     }
 
-    protected void checkAndWatchPrefForComponentState(String key, Class componentCls) {
+    protected void checkAndWatchPrefForComponentState(String key, String componentCls) {
         checkAndWatchPrefForComponentState(key, componentCls, null);
     }
 
-    protected void checkAndWatchPrefForComponentState(String key, Class componentCls, Callback.C1<Boolean> listener) {
+    protected void checkAndWatchPrefForComponentState(String key, Class componentCls) {
+        checkAndWatchPrefForComponentState(key, componentCls.getClass().getName(), null);
+    }
+
+    protected void checkAndWatchPrefForComponentState(String key, String componentCls, Callback.C1<Boolean> listener) {
         SwitchPreference preference = findPreference(key);
         preference.setChecked(ComponentUtils.isComponentEnabled(componentCls));
         preference.setOnPreferenceChangeListener((preference1, newValue) -> {

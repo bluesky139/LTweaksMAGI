@@ -17,5 +17,10 @@
             android:defaultValue="false"
             android:key="bilibili_remove_author_ad"
             android:title="@string/pref_bilibili_remove_author_ad" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="bilibili_search"
+            android:title="@string/pref_bilibili_search"
+            android:summary="@string/pref_bilibili_search_summary" />
     </PreferenceCategory>
 </PreferenceScreen>

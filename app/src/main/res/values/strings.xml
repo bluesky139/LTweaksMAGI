@@ -7,6 +7,7 @@
     <string name="status_error">ERROR! Check logcat for more details.</string>
     <string name="title_category">Category</string>
     <string name="not_supported">Not supported.</string>
+    <string name="error">Error.</string>
 
     <!-- Google -->
     <string name="pref_header_google">Google</string>
@@ -42,6 +43,8 @@
     <string name="pref_bilibili_disable_teen_mode_hint">Disable teen mode hint</string>
     <string name="pref_bilibili_disable_splash">Disable splash</string>
     <string name="pref_bilibili_remove_author_ad">Remove author recommended ad</string>
+    <string name="pref_bilibili_search">Search in Bilibili with selected text</string>
+    <string name="pref_bilibili_search_summary">Use floating menu with text selection</string>
 
     <!-- System -->
     <string name="pref_header_system">System / Tools</string>
@@ -63,4 +66,5 @@
     <!-- Text -->
     <string name="text_selectable">Selectable Text</string>
     <string name="process_text_incognito_search">Incognito Search</string>
+    <string name="process_text_bilibili">Bilibili</string>
 </resources>
