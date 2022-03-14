@@ -8,6 +8,7 @@ import androidx.preference.SwitchPreference;
 import li.lingfeng.magi.prefs.PrefStore;
 import li.lingfeng.magi.utils.Callback;
 import li.lingfeng.magi.utils.ComponentUtils;
+import li.lingfeng.magi.utils.Logger;
 
 public abstract class BasePrefFragment extends PreferenceFragmentCompat {
 
@@ -21,7 +22,7 @@ public abstract class BasePrefFragment extends PreferenceFragmentCompat {
     }
 
     protected void checkAndWatchPrefForComponentState(String key, Class componentCls) {
-        checkAndWatchPrefForComponentState(key, componentCls.getClass().getName(), null);
+        checkAndWatchPrefForComponentState(key, componentCls.getName(), null);
     }
 
     protected void checkAndWatchPrefForComponentState(String key, String componentCls, Callback.C1<Boolean> listener) {
