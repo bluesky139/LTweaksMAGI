@@ -14,5 +14,8 @@ public class BootReceiver extends BroadcastReceiver {
         if (PrefStore.instance.getBoolean("system_share_copy_to_share", false)) {
             context.startForegroundService(new Intent(context, CopyToShareService.class));
         }
+        if (PrefStore.instance.getBoolean("mxplayer_danmaku", false)) {
+            context.startForegroundService(new Intent(context, MXDanmakuService.class));
+        }
     }
 }

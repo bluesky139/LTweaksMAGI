@@ -1,5 +1,6 @@
 package li.lingfeng.magi.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
@@ -8,7 +9,6 @@ import androidx.preference.SwitchPreference;
 import li.lingfeng.magi.prefs.PrefStore;
 import li.lingfeng.magi.utils.Callback;
 import li.lingfeng.magi.utils.ComponentUtils;
-import li.lingfeng.magi.utils.Logger;
 
 public abstract class BasePrefFragment extends PreferenceFragmentCompat {
 
@@ -32,6 +32,25 @@ public abstract class BasePrefFragment extends PreferenceFragmentCompat {
             ComponentUtils.enableComponent(componentCls, (Boolean) newValue);
             if (listener != null) {
                 listener.onResult((Boolean) newValue);
+            }
+            return true;
+        });
+    }
+
+    protected void watchPrefForService(String key, Class serviceCls) {
+        watchPrefForService(key, serviceCls, null);
+    }
+
+    protected void watchPrefForService(String key, Class serviceCls, Preference.OnPreferenceChangeListener listener) {
+        findPreference(key).setOnPreferenceChangeListener((preference, newValue) -> {
+            Intent intent = new Intent(getContext(), serviceCls);
+            if ((boolean) newValue) {
+                getActivity().startForegroundService(intent);
+            } else {
+                getActivity().stopService(intent);
+            }
+            if (listener != null) {
+                listener.onPreferenceChange(preference, newValue);
             }
             return true;
         });

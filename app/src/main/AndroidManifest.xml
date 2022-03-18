@@ -100,6 +100,7 @@
         </activity>
 
         <service android:name=".services.CopyToShareService" />
+        <service android:name=".services.MXDanmakuService" />
         <receiver android:name=".services.BootReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -121,5 +122,6 @@
     <queries>
         <package android:name="com.android.chrome" />
         <package android:name="com.douban.frodo" />
+        <package android:name="li.lingfeng.mxdanmaku" />
     </queries>
 </manifest>

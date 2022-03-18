@@ -1,6 +1,5 @@
 package li.lingfeng.magi.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -22,15 +21,7 @@ public class SystemPrefFragment extends BasePrefFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkAndWatchPrefForComponentState("text_selectable_text", SelectableTextActivity.class);
-        findPreference("system_share_copy_to_share").setOnPreferenceChangeListener((preference, newValue) -> {
-            Intent intent = new Intent(getContext(), CopyToShareService.class);
-            if ((boolean) newValue) {
-                getActivity().startForegroundService(intent);
-            } else {
-                getActivity().stopService(intent);
-            }
-            return true;
-        });
+        watchPrefForService("system_share_copy_to_share", CopyToShareService.class);
 
         updateSummary("quick_settings_tile_set_preconfigured_brightness");
         findPreference("quick_settings_tile_set_preconfigured_brightness").setOnPreferenceChangeListener((preference, _newValue) -> {

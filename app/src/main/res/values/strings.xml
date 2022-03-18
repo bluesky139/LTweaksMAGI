@@ -51,6 +51,9 @@
     <string name="pref_douban_disable_splash">Disable splash</string>
     <string name="pref_douban_search">Search in Douban with selected text</string>
     <string name="pref_douban_search_summary">Use floating menu with text selection</string>
+    <string name="pref_category_mxplayer">MX Player</string>
+    <string name="pref_mxplayer_danmaku">MX Danmaku</string>
+    <string name="pref_mxplayer_danmaku_summary">Communicate with \"MX Danmaku\" to show danmaku</string>
 
     <!-- System -->
     <string name="pref_header_system">System / Tools</string>
