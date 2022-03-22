@@ -32,6 +32,7 @@
     <string name="pref_ttrss_disable_article_pager">Disable article pager</string>
     <string name="pref_category_telegram">Telegram</string>
     <string name="pref_telegram_remove_floating_button">Remove floating button</string>
+    <string name="pref_telegram_dismiss_allow_background">Dismiss allow background activity hint</string>
     <string name="pref_category_qq">QQ</string>
     <string name="pref_qq_external_browser">Use external browser</string>
 
