@@ -21,4 +21,11 @@
             android:key="telegram_remove_floating_button"
             android:title="@string/pref_telegram_remove_floating_button" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_qq">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="qq_external_browser"
+            android:title="@string/pref_qq_external_browser" />
+    </PreferenceCategory>
 </PreferenceScreen>
