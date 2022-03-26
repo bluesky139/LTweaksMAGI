@@ -7,4 +7,11 @@
             android:title="@string/pref_chrome_incognito_search"
             android:summary="@string/pref_chrome_incognito_search_summary" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_gms">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="gms_no_update_popup"
+            android:title="@string/pref_gms_no_update_popup" />
+    </PreferenceCategory>
 </PreferenceScreen>
