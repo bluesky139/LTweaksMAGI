@@ -5,18 +5,25 @@ import android.app.Application;
 import android.app.IApplicationThread;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.view.View;
+import android.view.WindowManagerGlobal;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import li.lingfeng.magi.Loader;
-import li.lingfeng.magi.tweaks.base.IMethodBase;
 import li.lingfeng.magi.utils.Logger;
+import li.lingfeng.magi.utils.ReflectUtils;
 
 public abstract class TweakBase extends IMethodBase implements Application.ActivityLifecycleCallbacks {
 
     protected Application mApp;
+    private static List<TweakBase> sWindowManagerTweaks;
 
     public void load() {
+        interceptWindowManager();
     }
 
     protected boolean shouldRegisterActivityLifecycle() {
@@ -69,7 +76,39 @@ public abstract class TweakBase extends IMethodBase implements Application.Activ
     public void onActivityDestroyed(@NonNull Activity activity) {
     }
 
-    public Class[] getServiceProxyClasses() {
-        return null;
+    protected boolean shouldInterceptWindowManagerAddView() {
+        return false;
+    }
+
+    private void interceptWindowManager() {
+        if (!shouldInterceptWindowManagerAddView()) {
+            return;
+        }
+        if (sWindowManagerTweaks == null) {
+            sWindowManagerTweaks = new ArrayList<>();
+            try {
+                ArrayList<View> views = (ArrayList<View>) ReflectUtils.getObjectField(WindowManagerGlobal.getInstance(), "mViews");
+                if (views.size() > 0) {
+                    Logger.e("WindowManagerGlobal exist views " + views);
+                    return;
+                }
+                WindowViewList windowViewList = new WindowViewList();
+                ReflectUtils.setObjectField(WindowManagerGlobal.getInstance(), "mViews", windowViewList);
+            } catch (Throwable e) {
+                Logger.e("Exception on WindowManagerGlobal.mViews", e);
+            }
+        }
+        sWindowManagerTweaks.add(this);
+    }
+
+    static class WindowViewList extends ArrayList<View> {
+        @Override
+        public boolean add(View view) {
+            sWindowManagerTweaks.forEach(tweak -> tweak.windowManagerAddView(view));
+            return super.add(view);
+        }
+    }
+
+    protected void windowManagerAddView(View view) {
     }
 }

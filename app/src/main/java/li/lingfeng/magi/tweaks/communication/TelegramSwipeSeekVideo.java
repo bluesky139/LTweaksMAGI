@@ -13,13 +13,11 @@ import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManagerGlobal;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import li.lingfeng.lib.AppLoad;
@@ -49,34 +47,20 @@ public class TelegramSwipeSeekVideo extends TweakBase {
     private boolean mInVideoViewer = false;
 
     @Override
-    public void load() {
-        super.load();
-        try {
-            ArrayList<View> views = (ArrayList<View>) ReflectUtils.getObjectField(WindowManagerGlobal.getInstance(), "mViews");
-            if (views.size() > 0) {
-                Logger.e("WindowManagerGlobal exist views " + views);
-                return;
-            }
-            MyArrayList myArrayList = new MyArrayList();
-            ReflectUtils.setObjectField(WindowManagerGlobal.getInstance(), "mViews", myArrayList);
-        } catch (Throwable e) {
-            Logger.e("Exception on WindowManagerGlobal.mViews", e);
-        }
+    protected boolean shouldInterceptWindowManagerAddView() {
+        return true;
     }
 
-    class MyArrayList extends ArrayList<View> {
-        @Override
-        public boolean add(View view) {
-            if (view.getClass().getName().startsWith(PHOTO_VIEWER)) {
-                Loader.getMainHandler().post(() -> {
-                    try {
-                        setVideoTouchListener((ViewGroup) view);
-                    } catch (Throwable e) {
-                        Logger.e("setVideoTouchListener exception.", e);
-                    }
-                });
-            }
-            return super.add(view);
+    @Override
+    protected void windowManagerAddView(View view) {
+        if (view.getClass().getName().startsWith(PHOTO_VIEWER)) {
+            Loader.getMainHandler().post(() -> {
+                try {
+                    setVideoTouchListener((ViewGroup) view);
+                } catch (Throwable e) {
+                    Logger.e("setVideoTouchListener exception.", e);
+                }
+            });
         }
     }
 

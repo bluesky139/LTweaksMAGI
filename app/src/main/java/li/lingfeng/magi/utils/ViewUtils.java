@@ -32,6 +32,8 @@ import java.util.Queue;
 import li.lingfeng.magi.R;
 import li.lingfeng.magi.prefs.ClassNames;
 
+import static li.lingfeng.magi.utils.ReflectUtils.findClass;
+
 /**
  * Created by smallville on 2017/2/9.
  */
@@ -132,12 +134,32 @@ public class ViewUtils {
         return findViewByType((ViewGroup) activity.getWindow().getDecorView(), type);
     }
 
+    public static <T extends View> T findViewByType(ViewGroup rootView, String type) {
+        try {
+            return findViewByType(rootView, (Class<? extends View>) findClass(type));
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
     public static <T extends View> T findViewByType(ViewGroup rootView, final Class<? extends View> type) {
         return findViewByType(rootView, type, -1);
     }
 
     public static <T extends View> T findViewByType(ViewGroup rootView, final Class<? extends View> type, int maxDeep) {
         List<View> views = traverseViews(rootView, true, (view, deep) -> type.isAssignableFrom(view.getClass()), maxDeep);
+        if (views.size() > 0) {
+            return (T) views.get(0);
+        }
+        return null;
+    }
+
+    public static <T extends View> T findViewByTypeStart(ViewGroup rootView, final String typePrefix) {
+        return findViewByTypeStart(rootView, typePrefix, -1);
+    }
+
+    public static <T extends View> T findViewByTypeStart(ViewGroup rootView, final String typePrefix, int maxDeep) {
+        List<View> views = traverseViews(rootView, true, (view, deep) -> view.getClass().getName().startsWith(typePrefix), maxDeep);
         if (views.size() > 0) {
             return (T) views.get(0);
         }
@@ -295,6 +317,9 @@ public class ViewUtils {
                 return false;
             }
         }, maxDeep);
+    }
+
+    public static void findViewByType(View view) {
     }
 
     public interface ViewTraverseCallback {
