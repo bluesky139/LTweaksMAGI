@@ -24,6 +24,11 @@
             android:defaultValue="false"
             android:key="telegram_dismiss_allow_background"
             android:title="@string/pref_telegram_dismiss_allow_background" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="telegram_swipe_seek_video"
+            android:title="@string/pref_telegram_swipe_seek_video"
+            android:summary="@string/pref_telegram_swipe_seek_video_summary" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_qq">
