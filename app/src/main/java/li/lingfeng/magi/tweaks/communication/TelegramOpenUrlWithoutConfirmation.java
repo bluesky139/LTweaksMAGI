@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import li.lingfeng.lib.AppLoad;
+import li.lingfeng.magi.Loader;
 import li.lingfeng.magi.prefs.ClassNames;
 import li.lingfeng.magi.prefs.PackageNames;
 import li.lingfeng.magi.tweaks.base.TweakBase;
@@ -24,23 +25,25 @@ public class TelegramOpenUrlWithoutConfirmation extends TweakBase {
 
     @Override
     protected void windowManagerAddView(View view) {
-        try {
-            if (view.getClass().getName().equals(ClassNames.DECOR_VIEW)) {
-                ViewGroup viewGroup = (ViewGroup) view;
-                viewGroup = ViewUtils.findViewByTypeStart(viewGroup, ALERT_DIALOG);
-                if (viewGroup == null) {
-                    return;
+        Loader.getMainHandler().post(() -> {
+            try {
+                if (view.getClass().getName().equals(ClassNames.DECOR_VIEW)) {
+                    ViewGroup viewGroup = (ViewGroup) view;
+                    viewGroup = ViewUtils.findViewByTypeStart(viewGroup, ALERT_DIALOG);
+                    if (viewGroup == null) {
+                        return;
+                    }
+                    TextView textView = ViewUtils.findViewByType(viewGroup, SPOILERS_TEXTVIEW);
+                    String text = textView.getText().toString();
+                    if (text.startsWith("Do you want to open")) {
+                        Logger.v(text + " Yes.");
+                        textView = ViewUtils.findTextViewByText(viewGroup, "OPEN");
+                        textView.performClick();
+                    }
                 }
-                TextView textView = ViewUtils.findViewByType(viewGroup, SPOILERS_TEXTVIEW);
-                String text = textView.getText().toString();
-                if (text.startsWith("Do you want to open")) {
-                    Logger.v(text + " Yes.");
-                    textView = ViewUtils.findTextViewByText(viewGroup, "OPEN");
-                    textView.performClick();
-                }
+            } catch (Throwable e) {
+                Logger.e("TelegramOpenUrlWithoutConfirmation exception.", e);
             }
-        } catch (Throwable e) {
-            Logger.e("TelegramOpenUrlWithoutConfirmation exception.", e);
-        }
+        });
     }
 }
