@@ -1,20 +1,13 @@
 package li.lingfeng.magi.tweaks;
 
-import android.app.Application;
 import android.os.SystemProperties;
 
-import li.lingfeng.lib.AppLoad;
 import li.lingfeng.magi.Loader;
-import li.lingfeng.magi.prefs.PackageNames;
-import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.utils.Logger;
 
-//@AppLoad(packageName = PackageNames.ANDROID, pref = "")
-public class SystemServer extends TweakBase {
+public class SystemServer {
 
-    /*@Override
-    public void load(Application app) {
-        super.load(app);
+    public void load() {
         Loader.onMainReady(new Loader.OnReadyRunnable() {
             @Override
             public boolean run() {
@@ -31,5 +24,5 @@ public class SystemServer extends TweakBase {
     }
 
     private void onBootCompleted() {
-    }*/
+    }
 }

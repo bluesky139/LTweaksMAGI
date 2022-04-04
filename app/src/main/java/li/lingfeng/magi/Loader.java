@@ -12,7 +12,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import li.lingfeng.lib.AppLoad;
+import li.lingfeng.magi.prefs.PackageNames;
 import li.lingfeng.magi.prefs.PrefStore;
+import li.lingfeng.magi.tweaks.SystemServer;
 import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.tweaks.proxy.ServiceManagerProxy;
 import li.lingfeng.magi.utils.Logger;
@@ -20,6 +22,7 @@ import li.lingfeng.magi.utils.ReflectUtils;
 
 public class Loader {
 
+    private static SystemServer sSystemServer;
     private static TweakBase[] sTweaks;
     private static ServiceManagerProxy sServiceManagerProxy;
     private static Application sApp;
@@ -27,6 +30,13 @@ public class Loader {
 
     public static void load(String niceName) {
         Logger.d("Loader.load() " + niceName);
+        if (PackageNames.ANDROID.equals(niceName)) {
+            /*sSystemServer = new SystemServer();
+            onApplicationReady(() -> {
+                sSystemServer.load();
+            }, niceName);
+            return;*/
+        }
         sTweaks = L.instantiateTweaks(niceName);
         if (sTweaks == null) {
             Logger.e("No tweaks for " + niceName + ", dex should not be loaded.");
