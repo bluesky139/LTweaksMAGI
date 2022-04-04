@@ -178,6 +178,18 @@ public class ViewUtils {
         return null;
     }
 
+    public static <T extends View> T findLastViewByTypeEnd(ViewGroup rootView, final String typeSuffix) {
+        return findLastViewByTypeEnd(rootView, typeSuffix, -1);
+    }
+
+    public static <T extends View> T findLastViewByTypeEnd(ViewGroup rootView, final String typeSuffix, int maxDeep) {
+        List<View> views = traverseViews(rootView, false, (view, deep) -> view.getClass().getName().endsWith(typeSuffix), maxDeep);
+        if (views.size() > 0) {
+            return (T) views.get(views.size() - 1);
+        }
+        return null;
+    }
+
     public static TextView findTextViewByText(ViewGroup rootView, String... texts) {
         List<View> views = traverseViews(rootView, true, (view, deep) -> {
             if (view instanceof TextView) {
@@ -225,15 +237,6 @@ public class ViewUtils {
     public static void printChilds(ViewGroup rootView) {
         Logger.v("printChilds rootView " + rootView);
         printChilds(rootView, 0);
-
-        /*traverseViews(rootView, false, new ViewTraverseCallback() {
-            @Override
-            public boolean onAddResult(View view, int deep) {
-                Logger.v(" child[" + deep + "] " + view
-                        + (view instanceof TextView ? " " + ((TextView) view).getText() : ""));
-                return false;
-            }
-        });*/
     }
 
     private static void printChilds(ViewGroup viewGroup, int deep) {
