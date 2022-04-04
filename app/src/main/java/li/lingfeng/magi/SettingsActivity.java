@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import li.lingfeng.magi.dex.Dex;
+import li.lingfeng.magi.services.BootReceiver;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        new BootReceiver.Run().startServices(this);
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {

@@ -11,11 +11,17 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Logger.i("LTweaks boot completed.");
-        if (PrefStore.instance.getBoolean("system_share_copy_to_share", false)) {
-            context.startForegroundService(new Intent(context, CopyToShareService.class));
-        }
-        if (PrefStore.instance.getBoolean("mxplayer_danmaku", false)) {
-            context.startForegroundService(new Intent(context, MXDanmakuService.class));
+        new Run().startServices(context);
+    }
+
+    public static class Run {
+        public void startServices(Context context) {
+            if (PrefStore.instance.getBoolean("system_share_copy_to_share", false)) {
+                context.startForegroundService(new Intent(context, CopyToShareService.class));
+            }
+            if (PrefStore.instance.getBoolean("mxplayer_danmaku", false)) {
+                context.startForegroundService(new Intent(context, MXDanmakuService.class));
+            }
         }
     }
 }
