@@ -38,4 +38,12 @@
             android:title="@string/pref_solid_explorer_highlight_visited_files"
             android:summary="@string/pref_solid_explorer_highlight_visited_files_summary" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/pref_category_text_scanner">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="text_scanner_no_camera"
+            android:title="@string/pref_text_scanner_no_camera" />
+    </PreferenceCategory>
 </PreferenceScreen>

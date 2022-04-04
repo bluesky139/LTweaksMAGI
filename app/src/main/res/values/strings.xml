@@ -86,6 +86,8 @@
     <string name="pref_solid_explorer_replace_streaming_url_summary">Replace server only, eg. SMB01:10.0.0.1,SMB02:10.0.0.2\nThus, player can access http://10.0.0.1/... to play video directly, instead of local redirect</string>
     <string name="pref_solid_explorer_highlight_visited_files">Highlight visited files</string>
     <string name="pref_solid_explorer_highlight_visited_files_summary">It\'s very useful if you use Solid Explorer to play episodes</string>
+    <string name="pref_category_text_scanner">Text Scanner</string>
+    <string name="pref_text_scanner_no_camera">Don\'t open camera if scan shared image</string>
 
     <!-- Text -->
     <string name="text_selectable">Selectable Text</string>
