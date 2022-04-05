@@ -26,6 +26,8 @@
     <string name="pref_category_taobao">Taobao</string>
     <string name="pref_taobao_fingerprint">Use fingerprint to confirm payment</string>
     <string name="pref_taobao_fingerprint_summary">Use password for first payment, then fingerprint can be used at next time</string>
+    <string name="pref_category_xiachufang">Xiachufang</string>
+    <string name="pref_xiachufang_remove_splash">Remove splash</string>
 
     <!--Communication-->
     <string name="pref_header_communication">Communication</string>

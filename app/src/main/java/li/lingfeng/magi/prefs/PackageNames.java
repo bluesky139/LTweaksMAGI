@@ -27,6 +27,7 @@ public class PackageNames {
     public static final String JD = "com.jingdong.app.mall";
     public static final String ALIPAY = "com.eg.android.AlipayGphone";
     public static final String ELE = "me.ele";
+    public static final String XIACHUFANG = "com.xiachufang";
 
     // Communication
     public static final String WE_CHAT = "com.tencent.mm";
