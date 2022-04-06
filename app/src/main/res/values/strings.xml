@@ -80,6 +80,8 @@
     <string name="pref_category_system_share">System Share</string>
     <string name="pref_system_share_copy_to_share">Copy to share</string>
     <string name="pref_system_share_copy_to_share_summary">When you copy text, a snackbar will appear for you to trigger share action.\nGboard must be default input method</string>
+    <string name="pref_system_share_disable_direct">Disable direct share</string>
+    <string name="pref_system_share_disable_direct_summary">Do not use if share list too long</string>
     <string name="pref_category_quick_settings">Quick Settings in status bar</string>
     <string name="pref_quick_settings_tile_set_preconfigured_brightness">Add tile \"Set xxx brightness\"</string>
     <string name="pref_quick_settings_tile_set_preconfigured_brightness_summary">Valid range 1-254, leave empty to disable.\nLong press tile to set auto brightness.</string>

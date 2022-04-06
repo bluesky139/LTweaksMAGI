@@ -57,6 +57,7 @@ public class PackageNames {
     public static final String APKPURE = "com.apkpure.aegon";
     public static final String ANDROID_SYSTEM_UI = "com.android.systemui";
     public static final String ANDROID = "android";
+    public static final String ANDROID_UI = "android:ui";
     public static final String ANDROID_SETTINGS = "com.android.settings";
     public static final String ANDROID_SETTINGS_PROVIDER = "com.android.providers.settings";
     public static final String ANDROID_SYSTEM = "system";

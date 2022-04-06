@@ -15,6 +15,11 @@
             android:key="system_share_copy_to_share"
             android:title="@string/pref_system_share_copy_to_share"
             android:summary="@string/pref_system_share_copy_to_share_summary" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="direct_share_disable"
+            android:title="@string/pref_system_share_disable_direct"
+            android:summary="@string/pref_system_share_disable_direct_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory
