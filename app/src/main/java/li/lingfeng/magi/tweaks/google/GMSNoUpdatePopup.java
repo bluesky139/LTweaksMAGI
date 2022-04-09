@@ -13,7 +13,7 @@ import li.lingfeng.magi.tweaks.base.Result;
 import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.utils.Logger;
 
-@AppLoad(packageName = PackageNames.GMS, pref = "gms_no_update_popup")
+@AppLoad(packageName = PackageNames.GMS_UI, pref = "gms_no_update_popup")
 public class GMSNoUpdatePopup extends TweakBase {
 
     private static final String UPDATE_POPUP = "com.google.android.gms.update.phone.PopupDialog";

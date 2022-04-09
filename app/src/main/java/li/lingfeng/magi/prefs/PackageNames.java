@@ -10,6 +10,7 @@ public class PackageNames {
 
     // Google
     public static final String GMS = "com.google.android.gms";
+    public static final String GMS_UI = "com.google.android.gms.ui";
     public static final String GOOGLE = "com.google.android.googlequicksearchbox";
     public static final String GOOGLE_PHOTOS = "com.google.android.apps.photos";
     public static final String GOOGLE_MAP = "com.google.android.apps.maps";
