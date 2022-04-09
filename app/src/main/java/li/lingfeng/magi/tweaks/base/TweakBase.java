@@ -11,6 +11,7 @@ import android.view.WindowManagerGlobal;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import li.lingfeng.magi.Loader;
@@ -30,8 +31,18 @@ public abstract class TweakBase extends IMethodBase implements Application.Activ
         return false;
     }
 
-    // This method should not be override.
     @Override
+    @CallSuper
+    public Result attachApplication(IApplicationThread app, long startSeq) throws RemoteException {
+        return new Result().before((r) -> {
+            Loader.getMainHandler().post(() -> {
+                Loader.sServiceManagerProxy.replaceCaches();
+            });
+        });
+    }
+
+    @Override
+    @CallSuper
     public Result getContentProvider(IApplicationThread caller, String callingPackage, String name, int userId, boolean stable) throws RemoteException {
         return new Result().before((r) -> {
             if (mApp == null) {

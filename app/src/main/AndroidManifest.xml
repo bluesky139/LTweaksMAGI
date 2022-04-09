@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
     <application
         android:name=".MyApplication"
@@ -25,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ListCheckActivity" />
 
         <activity android:name=".activities.SelectableTextActivity" android:excludeFromRecents="true"
             android:label="@string/text_selectable"
@@ -124,5 +126,8 @@
         <package android:name="com.douban.frodo" />
         <package android:name="tv.danmaku.bili" />
         <package android:name="li.lingfeng.mxdanmaku" />
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+        </intent>
     </queries>
 </manifest>

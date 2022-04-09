@@ -24,7 +24,7 @@ public class Loader {
 
     private static SystemServer sSystemServer;
     private static TweakBase[] sTweaks;
-    private static ServiceManagerProxy sServiceManagerProxy;
+    public static ServiceManagerProxy sServiceManagerProxy;
     private static Application sApp;
     private static Handler sMainHandler;
 

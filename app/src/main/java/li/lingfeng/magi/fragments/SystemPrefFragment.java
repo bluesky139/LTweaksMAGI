@@ -6,7 +6,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import li.lingfeng.magi.R;
+import li.lingfeng.magi.activities.ListCheckActivity;
 import li.lingfeng.magi.activities.SelectableTextActivity;
+import li.lingfeng.magi.fragments.sub.system.ShareFilterDataProvider;
 import li.lingfeng.magi.services.CopyToShareService;
 
 public class SystemPrefFragment extends BasePrefFragment {
@@ -22,6 +24,10 @@ public class SystemPrefFragment extends BasePrefFragment {
         super.onViewCreated(view, savedInstanceState);
         checkAndWatchPrefForComponentState("text_selectable_text", SelectableTextActivity.class);
         watchPrefForService("system_share_copy_to_share", CopyToShareService.class);
+        findPreference("system_share_filter").setOnPreferenceClickListener(preference -> {
+            ListCheckActivity.create(getActivity(), ShareFilterDataProvider.class);
+            return true;
+        });
 
         updateSummary("quick_settings_tile_set_preconfigured_brightness");
         findPreference("quick_settings_tile_set_preconfigured_brightness").setOnPreferenceChangeListener((preference, _newValue) -> {

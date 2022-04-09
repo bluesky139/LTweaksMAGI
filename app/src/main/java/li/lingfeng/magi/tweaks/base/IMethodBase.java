@@ -24,4 +24,8 @@ public abstract class IMethodBase {
                       int flags, ProfilerInfo profilerInfo, Bundle options) throws RemoteException {
         return null;
     }
+
+    public Result queryIntentActivities(Intent intent, String resolvedType, int flags, int userId) throws RemoteException {
+        return null;
+    }
 }

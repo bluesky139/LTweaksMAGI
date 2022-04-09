@@ -29,6 +29,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import li.lingfeng.magi.R;
 import li.lingfeng.magi.prefs.ClassNames;
 
@@ -331,6 +335,18 @@ public class ViewUtils {
 
     public interface ViewTraverseCallback2 {
         boolean onView(View view, int deep); // Return true to abort.
+    }
+
+    public static Fragment findFragmentByPosition(FragmentManager fragmentManager, ViewPager viewPager, int position) {
+        try {
+            Method method = FragmentPagerAdapter.class.getDeclaredMethod("makeFragmentName", int.class, long.class);
+            method.setAccessible(true);
+            String tag = (String) method.invoke(viewPager.getAdapter(), viewPager.getId(), position);
+            return fragmentManager.findFragmentByTag(tag);
+        } catch (Exception e) {
+            Logger.e("findFragmentByPosition error, " + e);
+            return null;
+        }
     }
 
     // Views will be detached from activity.

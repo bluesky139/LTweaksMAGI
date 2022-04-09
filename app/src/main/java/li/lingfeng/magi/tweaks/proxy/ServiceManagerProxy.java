@@ -1,7 +1,9 @@
 package li.lingfeng.magi.tweaks.proxy;
 
+import android.app.ActivityThread;
 import android.app.IActivityManager;
 import android.app.IActivityTaskManager;
+import android.content.pm.IPackageManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.IInterface;
@@ -32,6 +34,9 @@ public class ServiceManagerProxy {
     private static String[] NAMES = new String[] {
             "activity",
             "activity_task"
+    };
+    private static String[] CACHE_NAMES = new String[] {
+            "package"
     };
     private Map<String, Binder> mProxyMap = new HashMap<>(NAMES.length);
     private TweakBase[] mTweaks;
@@ -74,6 +79,29 @@ public class ServiceManagerProxy {
             ReflectUtils.setStaticObjectField(ServiceManager.class, "sServiceManager", proxy);
         } catch (Throwable e) {
             Logger.e("Failed to proxy ServiceManager.", e);
+        }
+    }
+
+    public void replaceCaches() {
+        try {
+            Map<String, IBinder> cache = (Map<String, IBinder>) ReflectUtils.getStaticObjectField(ServiceManager.class, "sCache");
+            for (String name : CACHE_NAMES) {
+                IBinder o = cache.get(name);
+                if (o == null) {
+                    Logger.e("No original cache on service " + name);
+                    continue;
+                }
+                Logger.v("Replace " + name + " service cache.");
+                if (name.equals("package")) {
+                    HiddenApiBypass.addHiddenApiExemptions("Landroid/content/pm/IPackageManager");
+                    IPackageManager.Stub serviceProxy = new IPackageManagerProxy(IPackageManager.Stub.asInterface(o), mTweaks);
+                    Binder p = newServiceProxy(serviceProxy, o);
+                    cache.put(name, p);
+                    ReflectUtils.setStaticObjectField(ActivityThread.class, "sPackageManager", null);
+                }
+            }
+        } catch (Throwable e) {
+            Logger.e("Exception on service cache replace.", e);
         }
     }
 

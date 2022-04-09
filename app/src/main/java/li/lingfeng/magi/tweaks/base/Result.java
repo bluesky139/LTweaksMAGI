@@ -77,6 +77,10 @@ public class Result {
         _hasResult = true;
     }
 
+    public void setResultSilently(Object result) {
+        this.result = result;
+    }
+
     public boolean hasResult() {
         return _hasResult;
     }
