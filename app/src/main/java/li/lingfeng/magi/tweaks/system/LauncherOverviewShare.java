@@ -12,7 +12,7 @@ import li.lingfeng.magi.tweaks.base.TweakBase;
 import li.lingfeng.magi.utils.Logger;
 import li.lingfeng.magi.utils.ViewUtils;
 
-@AppLoad(packageName = PackageNames.LAUNCHER3, pref = "launcher_overview_share")
+@AppLoad(packageName = PackageNames.PIXEL_LAUNCHER, pref = "launcher_overview_share")
 public class LauncherOverviewShare extends TweakBase {
 
     @Override
@@ -26,6 +26,10 @@ public class LauncherOverviewShare extends TweakBase {
         if (view != null) {
             Logger.i("Set " + view + " to be visible.");
             view.setVisibility(View.VISIBLE);
+            view = ViewUtils.findViewByName(activity, "oav_three_button_space");
+            if (view != null) {
+                view.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }
