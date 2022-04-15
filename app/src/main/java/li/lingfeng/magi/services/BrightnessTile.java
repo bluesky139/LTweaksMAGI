@@ -41,7 +41,7 @@ public class BrightnessTile extends TileService {
 
     private void updateTile(int value) {
         Tile tile = getQsTile();
-        tile.setLabel("Set " + value + " brightness");
+        tile.setLabel(value + " brightness");
         try {
             tile.setState(Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE)
                     == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
