@@ -142,8 +142,9 @@ public class MXPlayerDanmaku extends TweakBase {
 
     private boolean createControlIfNot(Activity activity, String durationString) {
         if (!mCreated) {
+            View subNavBar = ViewUtils.findViewByName(activity, "subNaviBar");
             int duration = Utils.stringTimeToSeconds(durationString);
-            if (duration > 0) {
+            if (duration > 0 && subNavBar.getVisibility() == View.VISIBLE) {
                 Logger.v("Create control.");
                 mCreated = true;
                 ContentValues values = new ContentValues(2);
