@@ -10,7 +10,6 @@ import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +54,7 @@ public class WeChatFingerprint extends TweakBase {
         }
     }
 
-    /*@Override
+    @Override
     protected boolean shouldInterceptWindowManagerAddView() {
         return true;
     }
@@ -68,7 +67,7 @@ public class WeChatFingerprint extends TweakBase {
                 handleDialog((ViewGroup) view);
             }
         });
-    }*/
+    }
 
     @Override
     public void onActivityPrePaused(@NonNull Activity activity) {
@@ -100,7 +99,6 @@ public class WeChatFingerprint extends TweakBase {
 
     private void handleRootView(ViewGroup rootView) {
         Logger.d("handleRootView");
-        ViewUtils.printChilds(rootView);
         if (tryOnce(rootView)) {
             return;
         }
@@ -136,17 +134,15 @@ public class WeChatFingerprint extends TweakBase {
     private void onPayDialogShown(ViewGroup rootView) throws Throwable {
         Logger.d("onPayDialogShown");
         View passwordLayout = ViewUtils.findViewByTypeEnd(rootView, EDIT_PASSWORD_VIEW);
-        EditText inputEditText = ViewUtils.findViewByTypeEnd(rootView, TENPAY_SECURE_EDITTEXT);
         ViewGroup keyboardView = ViewUtils.findLastViewByTypeEnd(rootView, MY_KEYBOARD_WINDOW);
         Validate.notNull(passwordLayout, "passwordLayout null");
-        Validate.notNull(inputEditText, "inputEditText null");
         Validate.notNull(keyboardView, "keyboardView null");
 
         String password = getPassword(rootView.getContext());
         if (password == null) { // Save password at first time.
             savePassword(keyboardView);
         } else {
-            authWithFingerprint(inputEditText, password);
+            authWithFingerprint(keyboardView, password);
         }
     }
 
@@ -176,8 +172,8 @@ public class WeChatFingerprint extends TweakBase {
     }
 
     @SuppressLint("MissingPermission")
-    private void authWithFingerprint(EditText inputEditText, String password) {
-        Context context = inputEditText.getContext();
+    private void authWithFingerprint(ViewGroup keyboardView, String password) {
+        Context context = keyboardView.getContext();
         String msg = "Fingerprint scan ready.";
         Logger.i(msg);
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -208,10 +204,11 @@ public class WeChatFingerprint extends TweakBase {
                 Logger.i(msg);
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 try {
-                    inputDigitalPassword(inputEditText, password);
+                    inputDigitalPassword(keyboardView, password);
                 } catch (Throwable e) {
                     Logger.e("inputDigitalPassword error.", e);
                     Toast.makeText(context, "Input digital password error.", Toast.LENGTH_SHORT).show();
+                    ViewUtils.printChilds(keyboardView);
                 }
             }
 
@@ -224,10 +221,13 @@ public class WeChatFingerprint extends TweakBase {
         }, null);
     }
 
-    private void inputDigitalPassword(EditText inputEditText, String password) throws Throwable {
-        Logger.d("inputEditText " + inputEditText);
+    private void inputDigitalPassword(ViewGroup keyboardView, String password) throws Throwable {
+        Logger.d("keyboardView " + keyboardView);
         Logger.i("Input digital password, length " + password.length());
-        inputEditText.setText(password);
+        for (int i = 0; i < 6; ++i) {
+            View button = ViewUtils.findViewByName(keyboardView, "tenpay_keyboard_" + password.charAt(i));
+            button.performClick();
+        }
     }
 
     private String getPassword(Context context) throws Throwable {
