@@ -38,6 +38,8 @@
 
 * Android Studio Arctic Fox | 2020.3.1
 
+* Magisk 23.0, riru 26.
+
 * Daily use device: Pixel 5a (Google Factory Image Android 12)
 
 * Debug device: Pixel 2 (crDroid Android 12)
