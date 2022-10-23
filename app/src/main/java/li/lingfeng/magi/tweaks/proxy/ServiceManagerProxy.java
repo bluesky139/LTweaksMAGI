@@ -5,6 +5,7 @@ import android.app.IActivityManager;
 import android.app.IActivityTaskManager;
 import android.content.pm.IPackageManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.IInterface;
 import android.os.IServiceManager;
@@ -109,6 +110,9 @@ public class ServiceManagerProxy {
         Method[] methods = proxy.getClass().getDeclaredMethods();
         Set<Integer> transactCodes = new HashSet<>();
         for (Method m : methods) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S && m.getName().equals("setSplashScreenTheme")) {
+                continue;
+            }
             Field code = proxy.getClass().getSuperclass().getDeclaredField("TRANSACTION_" + m.getName());
             code.setAccessible(true);
             int c = code.getInt(proxy);
