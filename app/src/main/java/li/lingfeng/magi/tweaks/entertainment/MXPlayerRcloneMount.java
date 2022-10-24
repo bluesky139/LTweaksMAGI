@@ -61,7 +61,7 @@ public class MXPlayerRcloneMount extends TweakBase {
                     " --cache-dir=" + cacheDir.getPath() +
                     " --log-file " + logFile.getPath() +
                     " --allow-other --gid 1015" +
-                    " --daemon 2>&1 &";
+                    " --daemon > /dev/null 2>&1 &";
             Logger.d(cmd);
             Shell.su(cmd).submit();
             Toast.makeText(activity, "rclone mount", Toast.LENGTH_SHORT).show();
