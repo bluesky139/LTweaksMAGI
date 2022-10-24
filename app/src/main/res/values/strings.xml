@@ -76,6 +76,9 @@
     <string name="pref_mxplayer_danmaku_summary">Communicate with \"MX Danmaku\" to show danmaku</string>
     <string name="pref_mxplayer_rclone_mount">rclone mount</string>
     <string name="pref_mxplayer_rclone_mount_summary">Mount /sdcard/rclone_mxplayer.conf</string>
+    <string name="pref_category_comic_screen">Comic Screen</string>
+    <string name="pref_comic_screen_rclone_mount">rclone mount</string>
+    <string name="pref_comic_screen_rclone_mount_summary">Mount /sdcard/rclone_comic_screen.conf</string>
 
     <!-- System -->
     <string name="pref_header_system">System / Tools</string>

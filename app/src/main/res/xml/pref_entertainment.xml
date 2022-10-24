@@ -56,4 +56,12 @@
             android:title="@string/pref_mxplayer_rclone_mount"
             android:summary="@string/pref_mxplayer_rclone_mount_summary" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_comic_screen">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="comic_screen_rclone_mount"
+            android:title="@string/pref_comic_screen_rclone_mount"
+            android:summary="@string/pref_comic_screen_rclone_mount_summary" />
+    </PreferenceCategory>
 </PreferenceScreen>
