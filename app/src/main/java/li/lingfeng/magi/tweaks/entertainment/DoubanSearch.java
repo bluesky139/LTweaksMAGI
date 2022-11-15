@@ -16,7 +16,7 @@ import li.lingfeng.magi.utils.Logger;
 @AppLoad(packageName = PackageNames.DOUBAN, pref = "douban_search")
 public class DoubanSearch extends TweakBase {
 
-    public static final String STATUS_SEARCH_ACTIVITY = "com.douban.frodo.status.activity.MixSearchActivity";
+    public static final String STATUS_SEARCH_ACTIVITY = "com.douban.frodo.activity.MixSearchActivity";
     private static final String SEARCH_ACTIVITY = "com.douban.frodo.search.activity.NewSearchActivity";
 
     @Override
