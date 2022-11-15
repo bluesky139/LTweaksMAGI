@@ -40,7 +40,7 @@ public class TelegramOpenUrlWithoutConfirmation extends TweakBase {
                     String text = textView.getText().toString();
                     if ("Open Link".equals(text) || text.startsWith("Do you want to open")) {
                         Logger.v(text + " Yes.");
-                        textView = ViewUtils.findTextViewByText(viewGroup, "OPEN");
+                        textView = ViewUtils.findTextViewByText(viewGroup, "Open");
                         textView.performClick();
                     }
                 }
