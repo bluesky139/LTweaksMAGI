@@ -13,7 +13,7 @@
             android:defaultValue="false"
             android:key="bilibili_disable_splash"
             android:title="@string/pref_bilibili_disable_splash" />
-        <Preference
+        <SwitchPreference
             android:key="bilibili_darken_splash"
             android:title="@string/pref_bilibili_darken_splash" />
         <SwitchPreference
