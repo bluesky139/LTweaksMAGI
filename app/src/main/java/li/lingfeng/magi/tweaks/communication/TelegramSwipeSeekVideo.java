@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
@@ -24,7 +25,7 @@ import li.lingfeng.lib.AppLoad;
 import li.lingfeng.magi.Loader;
 import li.lingfeng.magi.prefs.PackageNames;
 import li.lingfeng.magi.tweaks.base.TweakBase;
-import li.lingfeng.magi.utils.ContextUtils;
+import li.lingfeng.magi.utils.IOUtils;
 import li.lingfeng.magi.utils.Logger;
 import li.lingfeng.magi.utils.ReflectUtils;
 import li.lingfeng.magi.utils.ShareUtils;
@@ -143,14 +144,17 @@ public class TelegramSwipeSeekVideo extends TweakBase {
         ReflectUtils.callMethod(videoPlayer, "setLooping", new Object[] { false }, new Class[] { boolean.class });
 
         if (mPlayButton == null) {
-            Drawable _playDrawable = ContextUtils.getDrawable("s_play");
-            Drawable _pauseDrawable = ContextUtils.getDrawable("s_pause");
+            Drawable _playDrawable = IOUtils.openLAssetAsDrawable("s_play.png");
+            Drawable _pauseDrawable = IOUtils.openLAssetAsDrawable("s_pause.png");
             LevelListDrawable levelDrawable = new LevelListDrawable();
             levelDrawable.addLevel(3, 3, _playDrawable);
             levelDrawable.addLevel(4, 4, _pauseDrawable);
 
             mPlayButton = new ImageButton(view.getContext());
             mPlayButton.setBackgroundColor(Color.TRANSPARENT);
+            mPlayButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            int padding = dp2px(16);
+            mPlayButton.setPadding(padding, padding, padding, padding);
             mPlayButton.setImageDrawable(levelDrawable);
 
             View controlLayout = (View) ReflectUtils.getObjectField(photoViewer, "videoPlayerControlFrameLayout");

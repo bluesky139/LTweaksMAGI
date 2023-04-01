@@ -4,7 +4,9 @@
 
     <PreferenceCategory app:title="@string/title_status">
         <Preference
-            app:key="status" />
+            app:key="status_dex" />
+        <Preference
+            app:key="status_assets" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/title_category">

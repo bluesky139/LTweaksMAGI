@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import li.lingfeng.magi.dex.Assets;
 import li.lingfeng.magi.dex.Dex;
 import li.lingfeng.magi.services.BootReceiver;
 
@@ -37,10 +38,10 @@ public class SettingsActivity extends AppCompatActivity {
             int title;
             switch (status) {
                 case Dex.STATUS_ALREADY_UPDATED:
-                    title = R.string.status_updated;
+                    title = R.string.status_updated_dex;
                     break;
                 case Dex.STATUS_JUST_UPDATED:
-                    title = R.string.status_reboot;
+                    title = R.string.status_reboot_dex;
                     break;
                 case Dex.STATUS_ERROR:
                     title = R.string.status_error;
@@ -48,7 +49,24 @@ public class SettingsActivity extends AppCompatActivity {
                 default:
                     throw new IllegalStateException("Unexpected dex status: " + status);
             }
-            Preference preference = findPreference("status");
+            Preference preference = findPreference("status_dex");
+            preference.setTitle(title);
+
+            status = new Assets().checkAndUpdate(getContext());
+            switch (status) {
+                case Assets.STATUS_ALREADY_UPDATED:
+                    title = R.string.status_updated_assets;
+                    break;
+                case Assets.STATUS_JUST_UPDATED:
+                    title = R.string.status_reboot_assets;
+                    break;
+                case Assets.STATUS_ERROR:
+                    title = R.string.status_error;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected assets status: " + status);
+            }
+            preference = findPreference("status_assets");
             preference.setTitle(title);
         }
     }

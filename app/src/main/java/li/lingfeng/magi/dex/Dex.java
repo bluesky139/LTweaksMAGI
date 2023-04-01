@@ -16,23 +16,18 @@ import java.util.zip.ZipFile;
 import li.lingfeng.magi.utils.FileWriter;
 import li.lingfeng.magi.utils.Logger;
 
-public class Dex {
+public class Dex extends BaseUpdate {
 
-    public static final String FOLDER = "/data/local/LTweaksMAGI";
-    public static final String PATH = FOLDER + "/MAGI.dex";
-
-    public static final int STATUS_ALREADY_UPDATED = 0;
-    public static final int STATUS_JUST_UPDATED = 1;
-    public static final int STATUS_ERROR = 2;
+    public static final String PATH = BASE_FOLDER + "/MAGI.dex";
 
     public int checkAndUpdate(Context context) {
         try {
-            if (!new File(FOLDER).exists()) {
-                Shell.Result result = Shell.su("mkdir " + FOLDER
-                        + " && chmod 755 " + FOLDER
-                        + " && chcon u:object_r:dalvikcache_data_file:s0 " + FOLDER).exec();
+            if (!new File(BASE_FOLDER).exists()) {
+                Shell.Result result = Shell.su("mkdir " + BASE_FOLDER
+                        + " && chmod 755 " + BASE_FOLDER
+                        + " && chcon u:object_r:dalvikcache_data_file:s0 " + BASE_FOLDER).exec();
                 if (result.getCode() != 0) {
-                    throw new Exception("Can't create " + FOLDER);
+                    throw new Exception("Can't create " + BASE_FOLDER);
                 }
             }
 

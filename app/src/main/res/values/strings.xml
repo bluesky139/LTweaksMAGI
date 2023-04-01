@@ -2,8 +2,10 @@
     <string name="app_name">LTweaksMAGI</string>
     <string name="app_ok">OK</string>
     <string name="title_status">Status</string>
-    <string name="status_updated">Dex is already updated.</string>
-    <string name="status_reboot">Dex is just updated, reboot to take effect.</string>
+    <string name="status_updated_dex">Dex is already updated.</string>
+    <string name="status_reboot_dex">Dex is just updated, reboot to take effect.</string>
+    <string name="status_updated_assets">Assets is already updated.</string>
+    <string name="status_reboot_assets">Assets is just updated, reboot to take effect.</string>
     <string name="status_error">ERROR! Check logcat for more details.</string>
     <string name="title_category">Category</string>
     <string name="not_supported">Not supported.</string>
