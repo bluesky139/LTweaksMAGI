@@ -20,8 +20,13 @@
     <string name="pref_category_chrome">Chrome</string>
     <string name="pref_chrome_incognito_search">Incognito search</string>
     <string name="pref_chrome_incognito_search_summary">Incognito search, incognito url open</string>
+    <string name="pref_chrome_custom_tab_shortcut">Custom tab shortcut</string>
+    <string name="pref_chrome_custom_tab_shortcut_summary">Create custom tab shortcut on launcher</string>
     <string name="pref_category_gms">Google Play Services</string>
     <string name="pref_gms_no_update_popup">No system update popup</string>
+
+    <!-- Chrome -->
+    <string name="chrome_enter_url">Enter url</string>
 
     <!-- Shopping -->
     <string name="pref_header_shopping">Shopping</string>

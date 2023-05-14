@@ -6,6 +6,11 @@
             android:key="chrome_incognito_search"
             android:title="@string/pref_chrome_incognito_search"
             android:summary="@string/pref_chrome_incognito_search_summary" />
+        <Preference
+            android:defaultValue="false"
+            android:key="chrome_custom_tab_shortcut"
+            android:title="@string/pref_chrome_custom_tab_shortcut"
+            android:summary="@string/pref_chrome_custom_tab_shortcut_summary" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_gms">

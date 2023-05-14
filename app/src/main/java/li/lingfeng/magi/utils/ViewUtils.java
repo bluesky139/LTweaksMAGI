@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -413,6 +414,17 @@ public class ViewUtils {
             TextView textView = dialog.findViewById(android.R.id.message);
             textView.setTextIsSelectable(true);
         }));
+        dialog.show();
+    }
+
+    public static void showEdittextDialog(Context context, int titleId, Callback.C1<String> callback) {
+        EditText editText = new EditText(context);
+        Dialog dialog = new AlertDialog.Builder(context)
+                .setTitle(titleId)
+                .setView(editText)
+                .setPositiveButton(ContextUtils.getLString(R.string.app_ok),
+                        (dialog1, which) -> callback.onResult(editText.getText().toString()))
+                .create();
         dialog.show();
     }
 
