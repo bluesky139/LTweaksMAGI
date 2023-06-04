@@ -10,9 +10,9 @@
 
 * A very quick way to know what this module can do, see [strings.xml](https://github.com/bluesky139/LTweaksMAGI/blob/master/app/src/main/res/values/strings.xml).
 
-* Not like before, I'm very lazy these years, don't expect me to do many things that what you want, do-it-yourselfery.
+* Not like before, I'm very lazy these years, don't expect me to do many things that what you want, do-it-yourself.
 
-* Android 12 only, better AOSP or AOSP-like system.
+* Android 13 only, better AOSP or AOSP-like system.
 
 ## Build
 
@@ -20,7 +20,7 @@
 
 * Build release app and install.
 
-* Build gradle task `flashRelease` on `module`, magisk module will be built and flash to your device.
+* Build gradle task `:module:flashRelease`, magisk module will be built and flash to your device.
 
 * Reboot.
 
@@ -36,10 +36,10 @@
 
 ## My working environment
 
-* Android Studio Arctic Fox | 2020.3.1
+* Android Studio Flamingo | 2022.2.1 Patch 2
 
-* Magisk 23.0, riru 26.
+* Magisk 26.1, with zygisk enabled.
 
-* Daily use device: Pixel 5a (Google Factory Image Android 12)
+* Daily use device: Pixel 5a (Google Factory Image Android 13)
 
-* Debug device: Pixel 2 (crDroid Android 12)
+* Debug device: Pixel 2 (Pixel Experience Android 13)
