@@ -27,8 +27,7 @@ public class DirectShareDisable extends TweakBase {
         super.load();
         try {
             ReflectUtils.setStaticBooleanField(findClass("com.android.internal.app.ChooserFlags"), "USE_PREDICTION_MANAGER_FOR_DIRECT_TARGETS", false);
-            ReflectUtils.setStaticBooleanField(findClass("com.android.internal.app.ChooserFlags"), "USE_SERVICE_TARGETS_FOR_DIRECT_TARGETS", false);
-            ReflectUtils.setStaticBooleanField(findClass(CHOOSER_ACTIVITY), "USE_CHOOSER_TARGET_SERVICE_FOR_DIRECT_TARGETS", false);
+            ReflectUtils.setStaticBooleanField(findClass(CHOOSER_ACTIVITY), "USE_PREDICTION_MANAGER_FOR_SHARE_ACTIVITIES", false);
         } catch (Throwable e) {
             Logger.e("Exception on ChooserFlags", e);
         }

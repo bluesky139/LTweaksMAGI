@@ -20,7 +20,7 @@ import li.lingfeng.magi.utils.Logger;
 public class ShareFilter extends TweakBase {
 
     @Override
-    public Result queryIntentActivities(Intent intent, String resolvedType, int flags, int userId) throws RemoteException {
+    public Result queryIntentActivities(Intent intent, String resolvedType, long flags, int userId) throws RemoteException {
         return new Result().after((r) -> {
             if (!Intent.ACTION_SEND.equals(intent.getAction())) {
                 return;

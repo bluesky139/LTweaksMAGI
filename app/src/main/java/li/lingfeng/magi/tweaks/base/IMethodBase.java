@@ -25,7 +25,7 @@ public abstract class IMethodBase {
         return null;
     }
 
-    public Result queryIntentActivities(Intent intent, String resolvedType, int flags, int userId) throws RemoteException {
+    public Result queryIntentActivities(Intent intent, String resolvedType, long flags, int userId) throws RemoteException {
         return null;
     }
 }

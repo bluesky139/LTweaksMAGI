@@ -27,7 +27,7 @@ public class IPackageManagerProxy extends IPackageManager.Stub {
     }
 
     @Override
-    public ParceledListSlice queryIntentActivities(Intent intent, String resolvedType, int flags, int userId) throws RemoteException {
+    public ParceledListSlice queryIntentActivities(Intent intent, String resolvedType, long flags, int userId) throws RemoteException {
         List<Result> results = new ArrayList<>();
         for (IMethodBase impl : mImpls) {
             Result result = impl.queryIntentActivities(intent, resolvedType, flags, userId);
