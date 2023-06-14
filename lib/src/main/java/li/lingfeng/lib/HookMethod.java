@@ -6,9 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface AppLoad {
-    String packageName();
-    String pref();
-    boolean hook() default false;
+@Target(ElementType.METHOD)
+public @interface HookMethod {
+    Class hooker();
+    boolean isStatic();
 }

@@ -8,6 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.lang.ref.WeakReference;
+
 import li.lingfeng.lib.AppLoad;
 import li.lingfeng.magi.prefs.PackageNames;
 import li.lingfeng.magi.tweaks.base.TweakBase;
@@ -18,6 +21,7 @@ public class DoubanSearch extends TweakBase {
 
     public static final String STATUS_SEARCH_ACTIVITY = "com.douban.frodo.activity.MixSearchActivity";
     private static final String SEARCH_ACTIVITY = "com.douban.frodo.search.activity.NewSearchActivity";
+    private WeakReference<Activity> mRef;
 
     @Override
     protected boolean shouldRegisterActivityLifecycle() {
@@ -35,6 +39,17 @@ public class DoubanSearch extends TweakBase {
             intent.putExtra("from_ltweaks", true);
             activity.startActivity(intent);
             activity.finish();
+        } else if (activity.getIntent().getBooleanExtra("from_ltweaks", false)
+                && activity.getClass().getName().equals(SEARCH_ACTIVITY)) {
+            mRef = new WeakReference<>(activity);
+        }
+    }
+
+    @Override
+    public void onActivityDestroyed(@NonNull Activity activity) {
+        if (mRef != null && mRef.get() == activity) {
+            Logger.v("Move douban task to background.");
+            activity.moveTaskToBack(true);
         }
     }
 }

@@ -40,6 +40,11 @@
             android:defaultValue="false"
             android:key="launcher_overview_share"
             android:title="@string/pref_launcher_overview_share" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="launcher_fix_recents"
+            android:title="@string/pref_launcher_fix_recents"
+            android:summary="@string/pref_launcher_fix_recents_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory

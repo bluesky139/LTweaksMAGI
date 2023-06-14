@@ -19,5 +19,5 @@ ext {
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir, outDir
+    delete rootProject.buildDir, outDir, new File(rootProject.projectDir, "module/.cxx")
 }

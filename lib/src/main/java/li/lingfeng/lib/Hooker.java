@@ -7,8 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface AppLoad {
-    String packageName();
-    String pref();
-    boolean hook() default false;
+public @interface Hooker {
+    String cls();
+    String method();
 }

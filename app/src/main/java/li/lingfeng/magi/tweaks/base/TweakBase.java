@@ -55,6 +55,7 @@ public abstract class TweakBase extends IMethodBase implements Application.Activ
                 if (shouldRegisterActivityLifecycle()) {
                     mApp.registerActivityLifecycleCallbacks(this);
                 }
+                Loader.onApplicationReady();
             }
         });
     }

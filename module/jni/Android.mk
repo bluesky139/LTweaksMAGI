@@ -2,7 +2,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := main
-LOCAL_SRC_FILES := main.cpp
+LOCAL_C_INCLUDES := jni/include
+LOCAL_SRC_FILES := main.cpp lsplant.cc elf_util.cpp
 LOCAL_STATIC_LIBRARIES := libcxx
 LOCAL_LDLIBS := -llog
 include $(BUILD_SHARED_LIBRARY)

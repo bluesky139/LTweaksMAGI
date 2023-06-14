@@ -88,4 +88,8 @@ public class Result {
     public Object getResult() {
         return result;
     }
+
+    public int getIntResult() {
+        return (int) result;
+    }
 }
