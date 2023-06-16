@@ -1,0 +1,56 @@
+package li.lingfeng.magi.tweaks.hook;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
+import li.lingfeng.magi.Loader;
+import li.lingfeng.magi.tweaks.base.IMethodBase;
+import li.lingfeng.magi.tweaks.base.Result;
+import li.lingfeng.magi.utils.Logger;
+
+###IMPORTS###
+
+public class ###CLASS_NAME### {
+
+    public static ###RETURN_TYPE### hook(###THIS_OBJECT_AND_ARGS_WITH_TYPE###) throws Throwable {
+        List<Result> results = new ArrayList<>();
+        for (IMethodBase impl : Loader.getHookTweaks()) {
+            Result result = impl.###IMPL_METHOD_NAME###(###THIS_OBJECT### ###COMMA_MAY_GONE### ###ARGS###);
+            if (result != null) {
+                results.add(result);
+            }
+        }
+        for (Result result : results) {
+            result.hookBefore();
+            if (result.hasResult()) {
+                return ###RESULT_GET_RESULT###;
+            }
+        }
+
+        Object[] args = new Object[] {
+                ###ARGS###
+        };
+        ###DECLARE_ORIGINAL_RET###
+        try {
+            ###ASSIGN_TO_ORIGINAL_RET### Loader.invokeOriginalMethod(###CLASS_NAME###.class, ###THIS_OBJECT###, args);
+        } catch (InvocationTargetException e) {
+            throw e.getCause();
+        } /*catch (Throwable e) {
+            Logger.e("Error to invoke original method for ###CLASS_NAME###, skip call after.", e);
+            return;
+        }*/
+        for (Result result : results) {
+            ###SET_RESULT_SILENTLY###
+            result.hookAfter();
+            if (result.hasResult()) {
+                return ###RESULT_GET_RESULT###;
+            }
+        }
+        ###RETURN_ORIGINAL_RET###
+    }
+
+    public static ###RETURN_TYPE### backup(###THIS_OBJECT_AND_ARGS_WITH_TYPE###) {
+        throw new RuntimeException("in backup ###CLASS_NAME###.");
+    }
+}

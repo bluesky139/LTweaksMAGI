@@ -4,12 +4,12 @@ import android.app.IApplicationThread;
 import android.app.ProfilerInfo;
 import android.content.Intent;
 import android.graphics.PointF;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 
 import li.lingfeng.lib.HookMethod;
-import li.lingfeng.magi.tweaks.hook.Launcher;
 
 public abstract class IMethodBase {
 
@@ -33,13 +33,45 @@ public abstract class IMethodBase {
         return null;
     }
 
-    @HookMethod(hooker = Launcher.HandleNormalGestureEnd.class, isStatic = false)
+    @HookMethod(
+            cls = "com.android.quickstep.AbsSwipeUpHandler",
+            method = "handleNormalGestureEnd"
+    )
     public Result launcherHandleNormalGestureEnd(Object thisObject, float f3, boolean z2, PointF pointF, boolean z3) {
         return null;
     }
 
-    @HookMethod(hooker = Launcher.GetDestinationPage.class, isStatic = false)
+    @HookMethod(
+            cls = "com.android.launcher3.PagedView",
+            method = "getDestinationPage",
+            returnType = int.class
+    )
     public Result launcherGetDestinationPage(Object thisObject) {
+        return null;
+    }
+
+    @HookMethod(
+            cls = "com.android.systemui.navigationbar.NavigationBarView",
+            method = "setNavigationIconHints"
+    )
+    public Result navBarViewSetNavigationIconHints(Object thisObject, int hints) {
+        return null;
+    }
+
+    @HookMethod(
+            cls = "com.android.systemui.navigationbar.NavigationBarInflaterView",
+            method = "getDefaultLayout",
+            returnType = String.class
+    )
+    public Result navBarInflaterViewGetDefaultLayout(Object thisObject) {
+        return null;
+    }
+
+    @HookMethod(
+            cls = "com.android.systemui.navigationbar.buttons.KeyButtonView",
+            method = "setImageDrawable"
+    )
+    public Result keyButtonViewSetImageDrawable(Object thisObject, Drawable drawable) {
         return null;
     }
 }

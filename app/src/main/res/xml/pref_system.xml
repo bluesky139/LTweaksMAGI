@@ -48,6 +48,15 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/pref_category_nav_bar">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="nav_bar_input_cursor_control"
+            android:title="@string/pref_nav_bar_input_cursor_control"
+            android:summary="@string/pref_nav_bar_input_cursor_control_summary" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/pref_category_solid_explorer">
         <EditTextPreference
             android:key="solid_explorer_replace_streaming_url"

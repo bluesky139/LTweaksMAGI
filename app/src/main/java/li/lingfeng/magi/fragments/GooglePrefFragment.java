@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,31 +32,31 @@ public class GooglePrefFragment extends BasePrefFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findPreference("chrome_custom_tab_shortcut").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                ViewUtils.showEdittextDialog(getActivity(), R.string.chrome_enter_url, url -> {
-                    try {
-                        Logger.d("Create custom tab shortcut, url " + url);
-                        CustomTabsIntent intent = new CustomTabsIntent.Builder()
-                                .build();
-                        intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.intent.setData(Uri.parse(url));
+        findPreference("chrome_custom_tab_shortcut").setOnPreferenceClickListener(preference -> {
+            ViewGroup viewGroup = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.chrome_custom_tab_shortcut, null);
+            ViewUtils.showViewDialog(getActivity(), R.string.chrome_create_custom_tab_shortcut, viewGroup, () -> {
+                try {
+                    String url = ((EditText) viewGroup.findViewById(R.id.edit_url)).getText().toString();
+                    String label = ((EditText) viewGroup.findViewById(R.id.edit_label)).getText().toString();
+                    Logger.d("Create custom tab shortcut, url " + url);
+                    CustomTabsIntent intent = new CustomTabsIntent.Builder()
+                            .build();
+                    intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.intent.setData(Uri.parse(url));
 
-                        String id = "chrome_custom_tab_" + System.currentTimeMillis();
-                        ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(getActivity(), id)
-                                .setShortLabel(id)
-                                .setIcon(IconCompat.createWithResource(getActivity(), R.mipmap.ic_launcher))
-                                .setIntent(intent.intent)
-                                .build();
-                        ShortcutManagerCompat.requestPinShortcut(getActivity(), shortcut, null);
-                    } catch (Throwable e) {
-                        Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
-                        Logger.e("Error to create shortcut.", e);
-                    }
-                });
-                return true;
-            }
+                    String id = "chrome_custom_tab_" + System.currentTimeMillis();
+                    ShortcutInfoCompat shortcut = new ShortcutInfoCompat.Builder(getActivity(), id)
+                            .setShortLabel(label)
+                            .setIcon(IconCompat.createWithResource(getActivity(), R.mipmap.ic_launcher))
+                            .setIntent(intent.intent)
+                            .build();
+                    ShortcutManagerCompat.requestPinShortcut(getActivity(), shortcut, null);
+                } catch (Throwable e) {
+                    Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
+                    Logger.e("Error to create shortcut.", e);
+                }
+            });
+            return true;
         });
     }
 }

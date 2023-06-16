@@ -6,10 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface HookMethod {
-    boolean isStatic() default false;
-    String cls();
-    String method();
-    Class returnType() default void.class;
+@Target(ElementType.PARAMETER)
+public @interface Type {
+    String name();
 }

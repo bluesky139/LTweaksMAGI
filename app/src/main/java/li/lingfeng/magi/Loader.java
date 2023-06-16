@@ -7,29 +7,24 @@ import android.os.Looper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import li.lingfeng.lib.AppLoad;
 import li.lingfeng.lib.HookMethod;
-import li.lingfeng.lib.Hooker;
+import li.lingfeng.lib.Type;
 import li.lingfeng.magi.prefs.PackageNames;
 import li.lingfeng.magi.prefs.PrefStore;
 import li.lingfeng.magi.tweaks.SystemServer;
 import li.lingfeng.magi.tweaks.base.IMethodBase;
 import li.lingfeng.magi.tweaks.base.TweakBase;
-import li.lingfeng.magi.tweaks.hook.Launcher;
 import li.lingfeng.magi.tweaks.proxy.ServiceManagerProxy;
 import li.lingfeng.magi.utils.Logger;
 import li.lingfeng.magi.utils.ReflectUtils;
@@ -111,12 +106,13 @@ public class Loader {
 
         for (Method method : sToHookMethods) {
             HookMethod hookAnnotation = method.getAnnotation(HookMethod.class);
-            Class hookerCls = hookAnnotation.hooker();
+            String hooker = StringUtils.capitalize(method.getName());
             boolean isStatic = hookAnnotation.isStatic();
-            Hooker hooker = (Hooker) hookerCls.getAnnotation(Hooker.class);
-            Logger.v("hookMethod " + hooker.cls() + "#" + hooker.method());
+            Logger.v("hookMethod " + hooker + "#" + hookAnnotation.method());
 
             try {
+                Class hookerCls = ReflectUtils.findClass("li.lingfeng.magi.tweaks.hook."
+                        + hooker, Loader.class.getClassLoader());
                 Method[] methods = hookerCls.getDeclaredMethods();
                 Method hookMethod = methods[0].getName().equals("hook") ? methods[0] : methods[1];
                 Method backupMethod = methods[0] == hookMethod ? methods[1] : methods[0];
@@ -127,6 +123,15 @@ public class Loader {
                 }
 
                 Class[] hookTypes = hookMethod.getParameterTypes();
+                Annotation[][] annotationArrays = hookMethod.getParameterAnnotations();
+                for (int i = 0; i < annotationArrays.length; ++i) {
+                    Annotation[] annotations = annotationArrays[i];
+                    if (annotations.length == 1) {
+                        Type type = (Type) annotations[0];
+                        hookTypes[i] = ReflectUtils.findClass(type.name());
+                    }
+                }
+
                 Class[] targetTypes;
                 if (isStatic) {
                     targetTypes = hookTypes;
@@ -135,13 +140,18 @@ public class Loader {
                     System.arraycopy(hookTypes, 1, targetTypes, 0, targetTypes.length);
                 }
 
-                // TODO: can't match custom class.
-                Class targetCls = ReflectUtils.findClass(hooker.cls());
-                Method targetMethod = targetCls.getDeclaredMethod(hooker.method(), targetTypes);
+                Class targetCls = ReflectUtils.findClass(hookAnnotation.cls());
+                Method targetMethod = targetCls.getDeclaredMethod(hookAnnotation.method(), targetTypes);
+                if (BuildConfig.DEBUG) {
+                    if (targetMethod.getReturnType() != hookAnnotation.returnType()) {
+                        throw new Exception("return type not match, " + targetMethod.getReturnType()
+                                + ", " + hookAnnotation.returnType());
+                    }
+                }
                 hookMethod(targetMethod, hookMethod, backupMethod, hookerCls);
             } catch (Throwable e) {
-                Logger.e("Failed to hook " + hooker.cls() + "#" + hooker.method()
-                        + ", hooker " + hookerCls);
+                Logger.e("Failed to hook " + hookAnnotation.cls() + "#" + hookAnnotation.method()
+                        + ", hooker " + hooker, e);
             }
         }
         if (BuildConfig.DEBUG) {

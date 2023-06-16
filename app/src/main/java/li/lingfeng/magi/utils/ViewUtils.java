@@ -443,6 +443,16 @@ public class ViewUtils {
                 .show();
     }
 
+    public static void showViewDialog(Context context, int titleId, ViewGroup viewGroup, Callback.C0 callback) {
+        Dialog dialog = new AlertDialog.Builder(context)
+                .setTitle(titleId)
+                .setView(viewGroup)
+                .setPositiveButton(ContextUtils.getLString(R.string.app_ok),
+                        (dialog1, which) -> callback.onResult())
+                .create();
+        dialog.show();
+    }
+
     public static void executeJs(WebView webView, String js) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.evaluateJavascript(js, null);
