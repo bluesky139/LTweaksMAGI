@@ -17,21 +17,17 @@ import li.lingfeng.magi.utils.ReflectUtils;
 public class InputCursorNavControl extends TweakBase {
 
     private boolean mVisible = false;
-    private Object mInflaterView;
 
     @Override
     public Result navBarViewSetNavigationIconHints(Object thisObject, int hints) {
         return new Result().after(r -> {
-            if (mInflaterView != null) {
-                updateVisibility(thisObject);
-            }
+            updateVisibility(thisObject);
         });
     }
 
     @Override
     public Result navBarInflaterViewGetDefaultLayout(Object thisObject) {
         return new Result().before(r -> {
-            mInflaterView = thisObject;
             if (mVisible) {
                 String dpadLeft = "content://li.lingfeng.magi.resourceProvider/raw/nav_dpad_left";
                 String dpadRight = "content://li.lingfeng.magi.resourceProvider/raw/nav_dpad_right";
@@ -54,14 +50,15 @@ public class InputCursorNavControl extends TweakBase {
         });
     }
 
-    private void updateVisibility(Object navBarView) throws Throwable {
-        int iconHints = ReflectUtils.getIntField(navBarView, "mNavigationIconHints");
+    private void updateVisibility(Object navBar) throws Throwable {
+        int iconHints = ReflectUtils.getIntField(navBar, "mNavigationIconHints");
         boolean visible = (iconHints & (1 << 0) /* NAVIGATION_HINT_BACK_ALT */) != 0;
         if (mVisible == visible) {
             return;
         }
         mVisible = visible;
         Logger.d(mVisible ? "Show nav cursor control." : "Hide nav cursor control.");
-        ReflectUtils.callMethod(mInflaterView, "onLikelyDefaultLayoutChange");
+        Object view = ReflectUtils.getObjectField(navBar, "mView");
+        ReflectUtils.callMethod(view, "updateStates");
     }
 }

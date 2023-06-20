@@ -51,7 +51,7 @@ public abstract class IMethodBase {
     }
 
     @HookMethod(
-            cls = "com.android.systemui.navigationbar.NavigationBarView",
+            cls = "com.android.systemui.navigationbar.NavigationBar",
             method = "setNavigationIconHints"
     )
     public Result navBarViewSetNavigationIconHints(Object thisObject, int hints) {
