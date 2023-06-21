@@ -2,12 +2,14 @@ package li.lingfeng.magi.tweaks.base;
 
 import android.app.IApplicationThread;
 import android.app.ProfilerInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.view.View;
 
 import java.util.List;
 
@@ -83,6 +85,15 @@ public abstract class IMethodBase {
             method = "start"
     )
     public Result systemUiClipboardListenerStart(Object thisObject) {
+        return null;
+    }
+
+    @HookMethod(
+            cls = "org.telegram.ui.DialogsActivity",
+            method = "createView",
+            returnType = View.class
+    )
+    public Result telegramDialogsActivityCreateView(Object thisObject, Context context) {
         return null;
     }
 
