@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import li.lingfeng.lib.HookMethod;
+import li.lingfeng.lib.Type;
 
 public abstract class IMethodBase {
 
@@ -72,6 +73,19 @@ public abstract class IMethodBase {
             method = "setImageDrawable"
     )
     public Result keyButtonViewSetImageDrawable(Object thisObject, Drawable drawable) {
+        return null;
+    }
+
+    // TODO: dynamic find method
+    @HookMethod(
+            cls = "com.douban.frodo.baseproject.ad.FeedAdViewHolder",
+            method = "a"
+    )
+    public Result doubanFeedAdViewHolderBind(Object thisObject,
+                                             int i2,
+                                             @Type(name = "com.douban.frodo.baseproject.ad.FeedAd") Object feedAd,
+                                             @Type(name = "com.douban.frodo.baseproject.ad.FeedAdAdapterInterface") Object feedAdAdapterInterface,
+                                             @Type(name = "com.douban.frodo.baseproject.ad.FeedAdCallback") Object feedAdCallback) {
         return null;
     }
 }

@@ -78,6 +78,7 @@
     <string name="pref_bilibili_danmaku_off_summary">You need toggle \"remember danmaku state\" on</string>
     <string name="pref_category_douban">Douban</string>
     <string name="pref_douban_disable_splash">Disable splash</string>
+    <string name="pref_douban_remove_ad">*Remove ad</string>
     <string name="pref_douban_search">Search in Douban with selected text</string>
     <string name="pref_douban_search_summary">Use floating menu with text selection</string>
     <string name="pref_category_mxplayer">MX Player</string>

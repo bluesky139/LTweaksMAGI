@@ -122,8 +122,8 @@ public class Loader {
                     }
                 }
 
-                Class[] hookTypes = hookMethod.getParameterTypes();
-                Annotation[][] annotationArrays = hookMethod.getParameterAnnotations();
+                Class[] hookTypes = method.getParameterTypes();
+                Annotation[][] annotationArrays = method.getParameterAnnotations();
                 for (int i = 0; i < annotationArrays.length; ++i) {
                     Annotation[] annotations = annotationArrays[i];
                     if (annotations.length == 1) {

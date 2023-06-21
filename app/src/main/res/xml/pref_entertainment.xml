@@ -39,6 +39,10 @@
             android:title="@string/pref_douban_disable_splash" />
         <SwitchPreference
             android:defaultValue="false"
+            android:key="douban_remove_ad"
+            android:title="@string/pref_douban_remove_ad" />
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="douban_search"
             android:title="@string/pref_douban_search"
             android:summary="@string/pref_douban_search_summary" />
