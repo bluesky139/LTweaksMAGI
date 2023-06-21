@@ -76,6 +76,14 @@ public abstract class IMethodBase {
         return null;
     }
 
+    @HookMethod(
+            cls = "com.android.systemui.clipboardoverlay.ClipboardListener",
+            method = "start"
+    )
+    public Result systemUiClipboardListenerStart(Object thisObject) {
+        return null;
+    }
+
     // TODO: dynamic find method
     @HookMethod(
             cls = "com.douban.frodo.baseproject.ad.FeedAdViewHolder",

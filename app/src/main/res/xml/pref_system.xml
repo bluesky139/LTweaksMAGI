@@ -48,12 +48,16 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/pref_category_nav_bar">
+        android:title="@string/pref_category_system_ui">
         <SwitchPreference
             android:defaultValue="false"
             android:key="nav_bar_input_cursor_control"
             android:title="@string/pref_nav_bar_input_cursor_control"
             android:summary="@string/pref_nav_bar_input_cursor_control_summary" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="system_ui_clipboard_overlay_disable"
+            android:title="@string/pref_system_ui_clipboard_overlay_disable" />
     </PreferenceCategory>
 
     <PreferenceCategory
