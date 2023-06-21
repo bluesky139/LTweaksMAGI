@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 
+import java.util.List;
+
 import li.lingfeng.lib.HookMethod;
 import li.lingfeng.lib.Type;
 
@@ -81,6 +83,14 @@ public abstract class IMethodBase {
             method = "start"
     )
     public Result systemUiClipboardListenerStart(Object thisObject) {
+        return null;
+    }
+
+    @HookMethod(
+            cls = "org.telegram.ui.Components.Reactions.ChatSelectionReactionMenuOverlay",
+            method = "setSelectedMessages"
+    )
+    public Result telegramReactionMenuDisable(Object thisObject, List list) {
         return null;
     }
 
