@@ -22,6 +22,7 @@ public class DoubanSearch extends TweakBase {
     public static final String STATUS_SEARCH_ACTIVITY = "com.douban.frodo.activity.MixSearchActivity";
     private static final String SEARCH_ACTIVITY = "com.douban.frodo.search.activity.NewSearchActivity";
     private WeakReference<Activity> mRef;
+    private boolean mIsFromDouban = false;
 
     @Override
     protected boolean shouldRegisterActivityLifecycle() {
@@ -33,6 +34,7 @@ public class DoubanSearch extends TweakBase {
         String text = activity.getIntent().getStringExtra("ltweaks_search_text");
         if (!StringUtils.isEmpty(text)) {
             Logger.v("Search " + text);
+            mIsFromDouban = PackageNames.DOUBAN.equals(activity.getIntent().getStringExtra("calling_package"));
             Intent intent = new Intent();
             intent.setClassName(PackageNames.DOUBAN, SEARCH_ACTIVITY);
             intent.putExtra("query", text);
@@ -48,8 +50,13 @@ public class DoubanSearch extends TweakBase {
     @Override
     public void onActivityDestroyed(@NonNull Activity activity) {
         if (mRef != null && mRef.get() == activity) {
-            Logger.v("Move douban task to background.");
-            activity.moveTaskToBack(true);
+            if (mIsFromDouban) {
+                Logger.v("From douban itself, stay in douban.");
+                mIsFromDouban = false;
+            } else {
+                Logger.v("Move douban task to background.");
+                activity.moveTaskToBack(true);
+            }
         }
     }
 }

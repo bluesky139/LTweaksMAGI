@@ -76,6 +76,7 @@ public class ProcessTextActivity extends Activity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setClassName(PackageNames.DOUBAN, DoubanSearch.STATUS_SEARCH_ACTIVITY);
         intent.putExtra("ltweaks_search_text", text);
+        intent.putExtra("calling_package", getCallingPackage());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
