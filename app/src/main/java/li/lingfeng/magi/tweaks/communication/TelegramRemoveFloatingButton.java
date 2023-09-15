@@ -22,10 +22,14 @@ public class TelegramRemoveFloatingButton extends TweakBase {
     @Override
     public Result telegramDialogsActivityCreateView(Object thisObject, Context context) {
         return new Result().after(r -> {
-            View floatingButton = (View) ReflectUtils.getObjectField(thisObject, "floatingButtonContainer");
-            Logger.d("floatingButton " + floatingButton);
-            if (floatingButton != null && floatingButton.getParent() != null) {
-                ViewUtils.removeView(floatingButton);
+            for (String name : new String[] {
+                    "floatingButtonContainer", "floatingButton2Container"
+            }) {
+                View floatingButton = (View) ReflectUtils.getObjectField(thisObject, name);
+                Logger.d(name + " " + floatingButton);
+                if (floatingButton != null && floatingButton.getParent() != null) {
+                    ViewUtils.removeView(floatingButton);
+                }
             }
         });
     }
