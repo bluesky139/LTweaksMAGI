@@ -98,6 +98,15 @@ public abstract class IMethodBase {
     }
 
     @HookMethod(
+            cls = "org.telegram.messenger.MessagesController",
+            method = "getSponsoredMessages",
+            returnType = Object.class
+    )
+    public Result telegramMessagesControllerGetSponsoredMessages(Object thisObject, long j) {
+        return null;
+    }
+
+    @HookMethod(
             cls = "org.telegram.ui.Components.Reactions.ChatSelectionReactionMenuOverlay",
             method = "setSelectedMessages"
     )

@@ -143,7 +143,7 @@ public class Loader {
                 Class targetCls = ReflectUtils.findClass(hookAnnotation.cls());
                 Method targetMethod = targetCls.getDeclaredMethod(hookAnnotation.method(), targetTypes);
                 if (BuildConfig.DEBUG) {
-                    if (targetMethod.getReturnType() != hookAnnotation.returnType()) {
+                    if (!hookAnnotation.returnType().isAssignableFrom(targetMethod.getReturnType())) {
                         throw new Exception("return type not match, " + targetMethod.getReturnType()
                                 + ", " + hookAnnotation.returnType());
                     }

@@ -37,6 +37,10 @@
             android:defaultValue="false"
             android:key="telegram_disable_reaction_menu"
             android:title="@string/pref_telegram_disable_reaction_menu" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="telegram_remove_ad"
+            android:title="@string/pref_telegram_remove_ad" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_wechat">
