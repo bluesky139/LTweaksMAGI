@@ -39,6 +39,10 @@
             android:title="@string/pref_telegram_disable_reaction_menu" />
         <SwitchPreference
             android:defaultValue="false"
+            android:key="telegram_hide_stories"
+            android:title="@string/pref_telegram_hide_stories" />
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="telegram_remove_ad"
             android:title="@string/pref_telegram_remove_ad" />
     </PreferenceCategory>

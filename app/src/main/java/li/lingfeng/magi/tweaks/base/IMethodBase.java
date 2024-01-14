@@ -114,6 +114,14 @@ public abstract class IMethodBase {
         return null;
     }
 
+    @HookMethod(
+            cls = "org.telegram.ui.DialogsActivity",
+            method = "updateStoriesVisibility"
+    )
+    public Result telegramUpdateStoriesVisibility(Object thisObject, boolean z) {
+        return null;
+    }
+
     // TODO: dynamic find method
     @HookMethod(
             cls = "com.douban.frodo.baseproject.ad.FeedAdViewHolder",
