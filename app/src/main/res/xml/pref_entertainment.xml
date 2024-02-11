@@ -68,4 +68,11 @@
             android:title="@string/pref_comic_screen_rclone_mount"
             android:summary="@string/pref_comic_screen_rclone_mount_summary" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_pica_comic">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pica_comic_remove_ads"
+            android:title="@string/pref_pica_comic_remove_ads" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -92,6 +92,8 @@
     <string name="pref_category_comic_screen">Comic Screen</string>
     <string name="pref_comic_screen_rclone_mount">rclone mount</string>
     <string name="pref_comic_screen_rclone_mount_summary">Mount /sdcard/rclone_comic_screen.conf</string>
+    <string name="pref_category_pica_comic">Pica Comic</string>
+    <string name="pref_pica_comic_remove_ads">Remove ads</string>
 
     <!-- System -->
     <string name="pref_header_system">System / Tools</string>
